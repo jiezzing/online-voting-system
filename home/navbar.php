@@ -1,4 +1,13 @@
 <div class="app-header header-shadow">
+    <div class="app-header__menu">
+        <span>
+            <button type="button" class="hamburger hamburger--elastic mobile-toggle-header-nav">
+                <span class="hamburger-box">
+                    <span class="hamburger-inner"></span>
+                </span>
+            </button>
+        </span>
+    </div>
     <div class="app-header__content">
         <div class="widget-content-left  ml-3 header-user-info">
             <div class="widget-heading">
@@ -14,14 +23,14 @@
                     <div class="widget-content-wrapper">
                         <div class="widget-content-left">
                             <div class="btn-group">
-                                <form class="form-inline" id="register-form">
+                                <form class="form-inline" id="login-form">
                                     <div class="position-relative form-group">
                                         <label for="exampleEmail33" class="sr-only">Username</label
-                                        ><input name="email" id="exampleEmail33" placeholder="Username"  class="mr-2 form-control">
+                                        ><input name="username" placeholder="Username"  class="mr-2 form-control">
                                     </div>
                                     <div class="position-relative form-group">
                                         <label for="examplePassword44" class="sr-only">Password</label>
-                                        <input name="password" id="examplePassword44" placeholder="Password" type="password" class="mr-2 form-control">
+                                        <input name="password" placeholder="Password" type="password" class="mr-2 form-control">
                                     </div>
                                     <button class="btn btn-primary" id="login">Login</button>
                                 </form>
