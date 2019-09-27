@@ -16,7 +16,6 @@
     $query->voters_password = base64_encode($obj['password']);
 
     $is_exist = false;
-    
     $checkKey = $checker->checkPrimaryKey('voters_account', $obj['username'], base64_encode($obj['password']));
     while($data = $checkKey->fetch(PDO::FETCH_ASSOC)){
         $is_exist = true;
@@ -27,7 +26,7 @@
         $insert2 = $query->votersAccountRegistration();
 
         if($insert && $insert2)
-            echo 'success';
+            echo 'success'; 
         else   
             echo 'failed';
     }
