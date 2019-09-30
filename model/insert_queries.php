@@ -8,26 +8,71 @@
 			$this->conn = $db;
 		}
 		
-		// Voter Profile Registration
-		public function votersProfileRegistration(){
-			$query = " INSERT INTO voters_profile(user_type, voters_name, voters_status) VALUES (2, ?, 1)";
+		// Admin User Profile Registration - a candidate
+		public function candidateProfileRegistration(){
+			$query = " INSERT INTO users_profile(user_type, user_fullname, user_age, user_address, user_motto, user_achievements, user_image, user_status) VALUES (?, ?, ?, ?, ?, ?, ?, 1)";
 			$this->conn->setAttribute( PDO::ATTR_ERRMODE, PDO:: ERRMODE_WARNING);
 			$sel = $this->conn->prepare($query);
 
-			$sel->bindParam(1, $this->voters_name);
+			$sel->bindParam(1, $this->user_type);
+			$sel->bindParam(2, $this->user_fullname);
+			$sel->bindParam(3, $this->user_age);
+			$sel->bindParam(4, $this->user_address);
+			$sel->bindParam(5, $this->user_motto);
+			$sel->bindParam(6, $this->user_achievements);
+			$sel->bindParam(7, $this->user_image);
+
+			$sel->execute();
+			return $sel;
+        }
+		
+		// Voter Registration - not a candidate
+		public function usersProfileRegistration(){
+			$query = " INSERT INTO users_profile(user_type, user_fullname, user_age, user_address, user_motto, user_achievements, user_image, user_status) VALUES (?, ?, NULL, NULL, NULL, NULL, NULL, 1)";
+			$this->conn->setAttribute( PDO::ATTR_ERRMODE, PDO:: ERRMODE_WARNING);
+			$sel = $this->conn->prepare($query);
+
+			$sel->bindParam(1, $this->user_type);
+			$sel->bindParam(2, $this->user_fullname);
 
 			$sel->execute();
 			return $sel;
         }
         
         // Voter Account Registration
-		public function votersAccountRegistration(){
-			$query = " INSERT INTO voters_account(voters_username, voters_password, voters_status) VALUES (?, ?, 1)";
+		public function usersAccountRegistration(){
+			$query = " INSERT INTO users_account_file(voters_username, voters_password, voters_status) VALUES (?, ?, 1)";
 			$this->conn->setAttribute( PDO::ATTR_ERRMODE, PDO:: ERRMODE_WARNING);
 			$sel = $this->conn->prepare($query);
 
 			$sel->bindParam(1, $this->voters_username);
 			$sel->bindParam(2, $this->voters_password);
+
+			$sel->execute();
+			return $sel;
+		}
+        
+        // Create new poll
+		public function createPoll(){
+			$query = " INSERT INTO poll_file(created_at, started_at, end_at, poll_status) VALUES (?, NULL, NULL, 3)";
+			$this->conn->setAttribute( PDO::ATTR_ERRMODE, PDO:: ERRMODE_WARNING);
+			$sel = $this->conn->prepare($query);
+
+			$sel->bindParam(1, $this->created_at);
+
+			$sel->execute();
+			return $sel;
+		}
+        
+        // Poll detail file
+		public function createPollDetailFile(){
+			$query = "INSERT INTO poll_detail_file(poll_no, user_id, pos_id, poll_status) VALUES (?, ?, ?, 3)";
+			$this->conn->setAttribute( PDO::ATTR_ERRMODE, PDO:: ERRMODE_WARNING);
+			$sel = $this->conn->prepare($query);
+
+			$sel->bindParam(1, $this->poll_no);
+			$sel->bindParam(2, $this->user_id);
+			$sel->bindParam(3, $this->pos_id);
 
 			$sel->execute();
 			return $sel;

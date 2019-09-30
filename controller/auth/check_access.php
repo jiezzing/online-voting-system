@@ -8,21 +8,21 @@
 
     $query = new Select($db);
 
-    $obj = json_decode(json_encode($_POST['data']), true);
-
-    $query->voters_username = $obj['username'];
-    $query->voters_password = base64_encode($obj['password']);
+    $query->voters_username = $_SESSION['username'];
+    $query->voters_password = base64_encode($_SESSION['username']);
 
     $sel = $query->checkType();
     if ($row = $sel->fetch(PDO::FETCH_ASSOC)) {
-        extract($row);
-        $type = $row['user_type'];
-        if($type == 1){
-            header("Location: ../../admin/poll.php");
+        if($row['user_type'] == 1){
+            echo "Admin";
+            header("Location: ../../admin/pages/poll.php");
             exit();
         }
+        else if($row['user_type'] == 2){
+            echo "Voter";
+        }
         else{
-            echo "Voters";
+            echo "not found";
         }
     }
 ?>

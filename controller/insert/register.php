@@ -11,19 +11,21 @@
 
     $obj = json_decode(json_encode($_POST['data']), true);
     
-    $query->voters_name = $obj['name'];
+    $query->user_type = $obj['type'];
+    $query->user_fullname = $obj['name'];
     $query->voters_username = $obj['username'];
     $query->voters_password = base64_encode($obj['password']);
 
     $is_exist = false;
-    $checkKey = $checker->checkPrimaryKey('voters_account', $obj['username'], base64_encode($obj['password']));
+    $checkKey = $checker->checkPrimaryKey('users_account_file', $obj['username'], base64_encode($obj['password']));
     while($data = $checkKey->fetch(PDO::FETCH_ASSOC)){
         $is_exist = true;
         break;
     }
     if(!$is_exist){
-        $insert = $query->votersProfileRegistration();
-        $insert2 = $query->votersAccountRegistration();
+
+        $insert = $query->usersProfileRegistration();
+        $insert2 = $query->usersAccountRegistration();
 
         if($insert && $insert2)
             echo 'success'; 

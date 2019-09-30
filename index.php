@@ -2,7 +2,15 @@
 <html lang="en">
 <!-- Links or Header   -->
 <?php 
+    include 'controller/auth/auth_checker.php';
     include 'home/header.php';
+    include 'database/connection.php';
+    include 'model/select_queries.php';
+
+    $con = new connection();
+    $db = $con->connect();
+    
+    $select = new Select($db);
 ?>
 <!-- End of links/header -->
 
@@ -42,10 +50,12 @@
                         let name = $('#registration-form').find('input[name="name"]').val();
                         let username = $('#registration-form').find('input[name="username"]').val();
                         let password = $('#registration-form').find('input[name="password"]').val();
+
                         let data = {
                             'name': name,
                             'username': username,
-                            'password': password
+                            'password': password,
+                            'type': 2
                         };
                         $.ajax({
                             type: "POST",
@@ -81,7 +91,6 @@
             'password': password
         };
 
-        console.log(data);
         $.ajax({
             type: "POST",
             url: "controller/auth/check_user.php",
@@ -90,29 +99,12 @@
             },
             success: function(response){
                 alert(response);
-                if(response == "success"){
-                    $.ajax({
-                        type: "POST",
-                        url: "controller/auth/check_access.php",
-                        data: { 
-                            data: data 
-                        },
-                        success: function(response){
-                            alert(response);
-                        },
-                        error: function(xhr, ajaxOptions, thrownError){
-                            alert(thrownError);
-                        }
-                    });
-                }
-                else
-                    toastr.error("Please check your username and password", "Error", "error");
+                window.location = "controller/auth/check_access.php";
             },
             error: function(xhr, ajaxOptions, thrownError){
                 alert(thrownError);
             }
         });
-
     });
 </script>
 </body>

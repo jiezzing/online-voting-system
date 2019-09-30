@@ -8,8 +8,7 @@
     <meta name="description" content="Inline validation is very easy to implement using the Architect Framework.">
     <meta name="msapplication-tap-highlight" content="no">
 
-    <script src="assets/jquery/jquery.min.js"></script>
-    <link href="../main.css" rel="stylesheet">
-	<link rel="stylesheet" href="../assets/toastr/build/toastr.css">
-	<link rel="stylesheet" href="../assets/bootstrap-sweetalert/dist/sweetalert.css">
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <link href="../../main.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/bootstrap-sweetalert/dist/sweetalert.css">
 </head>
