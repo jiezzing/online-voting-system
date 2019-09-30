@@ -46,6 +46,7 @@
                                                         <tbody> 
                                                         '; 
                                                             if($row2['pos_id'] == 1){
+                                                                $president_ctr = 0;
                                                                 $query3 = $select->getAllPresident();
                                                                 while($row3 = $query3->fetch(PDO::FETCH_ASSOC)){
                                                                     echo'
@@ -58,12 +59,13 @@
                                                                         </td>
                                                                         <td style="text-align: center">
                                                                             <div class="custom-radio custom-control">
-                                                                                <input type="radio" id="radio'.$collapse_no.'" name="radio'.$collapse_no.'" class="custom-control-input">
-                                                                                <label class="custom-control-label" for="radio'.$collapse_no.'"> Vote</label>
+                                                                                <input type="radio" id="radio'.$president_ctr.'" name="president-radio" class="custom-control-input">
+                                                                                <label class="custom-control-label" for="radio'.$president_ctr.'"> Vote</label>
                                                                             </div>
                                                                         </td>
                                                                     </tr>
                                                                     ';
+                                                                    $president_ctr++;
                                                                 }
                                                             }
                                                         echo '
