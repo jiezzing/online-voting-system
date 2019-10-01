@@ -30,19 +30,14 @@
                         <div class="page-title-wrapper">
                             <div class="page-title-heading">
                                 <div class="page-title-icon">
-                                    <i class="pe-7s-graph2 icon-gradient bg-amy-crisp">
+                                    <i class="pe-7s-users icon-gradient bg-amy-crisp">
                                     </i>
                                 </div>
-                                <div>Registration Form
-                                    <div class="page-title-subheading">President
+                                <div>Users
+                                    <div class="page-title-subheading">Showing all voters/users
                                     </div>
                                 </div>
-                            </div>
-                            <div class="page-title-actions">
-                                <button type="button" data-toggle="tooltip" title="Open for Voting" data-placement="bottom" class="btn-shadow mr-3 btn btn-danger">
-                                    <i class="fa fa-star"></i>
-                                </button>
-                            </div>    
+                            </div> 
                         </div>
                     </div>       
                 ';

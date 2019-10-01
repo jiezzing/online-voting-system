@@ -56,7 +56,7 @@
 
         // Get all poll
 		public function getPoll(){
-			$query = " SELECT LPAD(poll_id, 5, '0') as poll_no, poll_id, poll_status, status_name FROM poll_file, status_file WHERE poll_status=status_id ORDER BY poll_id DESC";
+			$query = " SELECT LPAD(poll_id, 5, '0') as poll_no, poll_id, poll_status, status_name, created_at FROM poll_file, status_file WHERE poll_status=status_id ORDER BY poll_id DESC";
 			$this->conn->setAttribute( PDO::ATTR_ERRMODE, PDO:: ERRMODE_WARNING);
 			$sel = $this->conn->prepare($query);
 
@@ -74,9 +74,97 @@
 			return $sel;
         }
 
-        // Count all users
-		public function getAllPresident(){
-			$query = " SELECT * FROM poll_detail_file, users_profile WHERE poll_status=3 AND pos_id=1 AND user_id=voters_id";
+        // Get all president
+		public function getPresident(){
+			$query = " SELECT * FROM poll_file, poll_detail_file, users_profile WHERE poll_detail_file.poll_status=3 AND pos_id=1 AND user_id=voters_id AND poll_file.poll_id=poll_no AND poll_file.poll_id=?";
+			$this->conn->setAttribute( PDO::ATTR_ERRMODE, PDO:: ERRMODE_WARNING);
+			$sel = $this->conn->prepare($query);
+
+			$sel->bindParam(1, $this->poll_id);
+			$sel->execute();
+			return $sel;
+        }
+
+        // Get all president
+		public function getVicePresident(){
+			$query = " SELECT * FROM poll_file, poll_detail_file, users_profile WHERE poll_detail_file.poll_status=3 AND pos_id=2 AND user_id=voters_id AND poll_file.poll_id=poll_no AND poll_file.poll_id=?";
+			$this->conn->setAttribute( PDO::ATTR_ERRMODE, PDO:: ERRMODE_WARNING);
+			$sel = $this->conn->prepare($query);
+
+			$sel->bindParam(1, $this->poll_id);
+			$sel->execute();
+			return $sel;
+        }
+
+        // Get all secratary
+		public function getSecretary(){
+			$query = " SELECT * FROM poll_file, poll_detail_file, users_profile WHERE poll_detail_file.poll_status=3 AND pos_id=3 AND user_id=voters_id AND poll_file.poll_id=poll_no AND poll_file.poll_id=?";
+			$this->conn->setAttribute( PDO::ATTR_ERRMODE, PDO:: ERRMODE_WARNING);
+			$sel = $this->conn->prepare($query);
+
+			$sel->bindParam(1, $this->poll_id);
+			$sel->execute();
+			return $sel;
+        }
+
+        // Get all secratary
+		public function getTreasurer(){
+			$query = " SELECT * FROM poll_file, poll_detail_file, users_profile WHERE poll_detail_file.poll_status=3 AND pos_id=4 AND user_id=voters_id AND poll_file.poll_id=poll_no AND poll_file.poll_id=?";
+			$this->conn->setAttribute( PDO::ATTR_ERRMODE, PDO:: ERRMODE_WARNING);
+			$sel = $this->conn->prepare($query);
+
+			$sel->bindParam(1, $this->poll_id);
+			$sel->execute();
+			return $sel;
+        }
+
+        // Get all secratary
+		public function getPIO(){
+			$query = " SELECT * FROM poll_file, poll_detail_file, users_profile WHERE poll_detail_file.poll_status=3 AND pos_id=5 AND user_id=voters_id AND poll_file.poll_id=poll_no AND poll_file.poll_id=?";
+			$this->conn->setAttribute( PDO::ATTR_ERRMODE, PDO:: ERRMODE_WARNING);
+			$sel = $this->conn->prepare($query);
+
+			$sel->bindParam(1, $this->poll_id);
+			$sel->execute();
+			return $sel;
+        }
+
+        // Get all secratary
+		public function getAuditor(){
+			$query = " SELECT * FROM poll_file, poll_detail_file, users_profile WHERE poll_detail_file.poll_status=3 AND pos_id=6 AND user_id=voters_id AND poll_file.poll_id=poll_no AND poll_file.poll_id=?";
+			$this->conn->setAttribute( PDO::ATTR_ERRMODE, PDO:: ERRMODE_WARNING);
+			$sel = $this->conn->prepare($query);
+
+			$sel->bindParam(1, $this->poll_id);
+			$sel->execute();
+			return $sel;
+        }
+
+        // Get all secratary
+		public function getSergeantAtArms(){
+			$query = " SELECT * FROM poll_file, poll_detail_file, users_profile WHERE poll_detail_file.poll_status=3 AND pos_id=7 AND user_id=voters_id AND poll_file.poll_id=poll_no AND poll_file.poll_id=?";
+			$this->conn->setAttribute( PDO::ATTR_ERRMODE, PDO:: ERRMODE_WARNING);
+			$sel = $this->conn->prepare($query);
+
+			$sel->bindParam(1, $this->poll_id);
+			$sel->execute();
+			return $sel;
+        }
+
+        // Get all secratary
+		public function getRepresentatives(){
+			$query = " SELECT * FROM poll_file, poll_detail_file, users_profile WHERE poll_detail_file.poll_status=3 AND pos_id=8 AND user_id=voters_id AND poll_file.poll_id=poll_no AND poll_file.poll_id=?";
+			$this->conn->setAttribute( PDO::ATTR_ERRMODE, PDO:: ERRMODE_WARNING);
+			$sel = $this->conn->prepare($query);
+
+			$sel->bindParam(1, $this->poll_id);
+			$sel->execute();
+			return $sel;
+        }
+
+        // Get all secratary
+		public function getUsers(){
+			$query = "SELECT * FROM users_profile prof, users_account_file acc WHERE prof.voters_id=acc.voters_id";
 			$this->conn->setAttribute( PDO::ATTR_ERRMODE, PDO:: ERRMODE_WARNING);
 			$sel = $this->conn->prepare($query);
 

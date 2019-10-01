@@ -40,7 +40,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="../../admin/pages/users.php">
                             <i class="metismenu-icon pe-7s-users"></i>
                             Users
                         </a>

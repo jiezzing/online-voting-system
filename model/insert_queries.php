@@ -66,7 +66,7 @@
         
         // Poll detail file
 		public function createPollDetailFile(){
-			$query = "INSERT INTO poll_detail_file(poll_no, user_id, pos_id, poll_status) VALUES (?, ?, ?, 3)";
+			$query = "INSERT INTO poll_detail_file(poll_no, user_id, pos_id, total_votes, poll_status) VALUES (?, ?, ?, 0, 3)";
 			$this->conn->setAttribute( PDO::ATTR_ERRMODE, PDO:: ERRMODE_WARNING);
 			$sel = $this->conn->prepare($query);
 

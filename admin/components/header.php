@@ -11,4 +11,5 @@
     <script src="../../assets/jquery/jquery.min.js"></script>
     <link href="../../main.css" rel="stylesheet">
     <link rel="stylesheet" href="../../assets/bootstrap-sweetalert/dist/sweetalert.css">
+	<link rel="stylesheet" href="../../assets/css/datatable.bootstrap.min.css">
 </head>
