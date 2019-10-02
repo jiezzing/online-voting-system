@@ -10,11 +10,11 @@
 		
 		// Admin User Profile Registration - a candidate
 		public function candidateProfileRegistration(){
-			$query = " INSERT INTO users_profile(user_type, user_fullname, user_age, user_address, user_motto, user_achievements, user_image, user_status) VALUES (?, ?, ?, ?, ?, ?, ?, 1)";
+			$query = " INSERT INTO users_profile(pos_id, type_id, user_fullname, user_age, user_address, user_motto, user_achievements, user_image, user_status) VALUES (?, 3, ?, ?, ?, ?, ?, ?, 1)";
 			$this->conn->setAttribute( PDO::ATTR_ERRMODE, PDO:: ERRMODE_WARNING);
 			$sel = $this->conn->prepare($query);
 
-			$sel->bindParam(1, $this->user_type);
+			$sel->bindParam(1, $this->pos_id);
 			$sel->bindParam(2, $this->user_fullname);
 			$sel->bindParam(3, $this->user_age);
 			$sel->bindParam(4, $this->user_address);
@@ -28,11 +28,11 @@
 		
 		// Voter Registration - not a candidate
 		public function usersProfileRegistration(){
-			$query = " INSERT INTO users_profile(user_type, user_fullname, user_age, user_address, user_motto, user_achievements, user_image, user_status) VALUES (?, ?, NULL, NULL, NULL, NULL, NULL, 1)";
+			$query = " INSERT INTO users_profile(pos_id, type_id, user_fullname, user_age, user_address, user_motto, user_achievements, user_image, user_status) VALUES (?, 2, ?, NULL, NULL, NULL, NULL, NULL, 1)";
 			$this->conn->setAttribute( PDO::ATTR_ERRMODE, PDO:: ERRMODE_WARNING);
 			$sel = $this->conn->prepare($query);
 
-			$sel->bindParam(1, $this->user_type);
+			$sel->bindParam(1, $this->pos_id);
 			$sel->bindParam(2, $this->user_fullname);
 
 			$sel->execute();

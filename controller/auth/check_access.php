@@ -13,13 +13,14 @@
 
     $sel = $query->checkType();
     if ($row = $sel->fetch(PDO::FETCH_ASSOC)) {
-        if($row['user_type'] == 1){
-            echo "Admin";
+        if($row['type_id'] == 1){
+            echo $_SESSION['isLoggedIn'];
             header("Location: ../../admin/pages/poll.php");
             exit();
         }
-        else if($row['user_type'] == 2){
-            echo "Voter";
+        else if($row['type_id'] == 2){
+            header("Location: ../../voter/pages/poll.php");
+            exit();
         }
         else{
             echo "not found";

@@ -3,7 +3,7 @@
 <?php 
     $page = 'Poll';
     include '../../controller/auth/auth_checker.php';
-    include '../../admin/components/header.php';
+    include '../../voter/components/header.php';
     include '../../database/connection.php';
     include '../../model/select_queries.php';
     $con = new connection();
@@ -79,81 +79,22 @@
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modal-title">Results for POLL # 00001</h5>
+                    <h5 class="modal-title" id="stat-title">Results for POLL # 00001</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="main-card mb-0 card">
-                            <div class="card-body">
-                                <ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
-                                    <li class="nav-item">
-                                        <a role="tab" class="nav-link active" id="tab-0" data-toggle="tab" href="#tab-content-0">
-                                            <span>President</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a role="tab" class="nav-link" id="tab-1" data-toggle="tab" href="#tab-content-1">
-                                            <span>Vice President</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a role="tab" class="nav-link" id="tab-2" data-toggle="tab" href="#tab-content-2">
-                                            <span>Secretary</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a role="tab" class="nav-link" id="tab-3" data-toggle="tab" href="#tab-content-3">
-                                            <span>Treasurer</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a role="tab" class="nav-link" id="tab-4" data-toggle="tab" href="#tab-content-4">
-                                            <span>P.I.O</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a role="tab" class="nav-link" id="tab-5" data-toggle="tab" href="#tab-content-5">
-                                            <span>Auditor</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a role="tab" class="nav-link" id="tab-6" data-toggle="tab" href="#tab-content-6">
-                                            <span>Sergeant @ Arms</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a role="tab" class="nav-link" id="tab-7" data-toggle="tab" href="#tab-content-7">
-                                            <span>Department Reps.</span>
-                                        </a>
-                                    </li>
-                                </ul>
-
-                                <div class="tab-content">
-                                    <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <canvas id="canvas"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                                </div>
+                <div class="modal-body" id="stats-body">
+                    
                 </div>
             </div>
         </div>
     </div>
     <?php 
-        include '../../admin/components/navbar.php';  
-        include '../../admin/components/sidebar.php'; 
-        include '../../admin/components/semi-navbar.php';    
-        include '../../admin/components/accordion.php';  
+        include '../../voter/components/navbar.php';  
+        include '../../voter/components/sidebar.php'; 
+        include '../../voter/components/semi-navbar.php';    
+        include '../../voter/components/accordion.php';  
     ?>   
 </div>
 
@@ -164,6 +105,7 @@
 
 <script src="../../assets/bootstrap-sweetalert/dist/sweetalert.js"></script>
 <script src="../../assets/bootstrap-sweetalert/dist/sweetalert.min.js"></script>
+<script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
 
 <script>
     let poll_no;
@@ -289,7 +231,7 @@
             closeOnConfirm: false,
             confirmButtonText: "Yes",
             cancelButtonClass: 'btn-danger'
-        }, function (data) { 
+        }, function (data) {
             if(data){
                 $.ajax({
                     type: "POST",
@@ -317,43 +259,100 @@
         });
     });
 
-    let color = Chart.helpers.color;
-    let barChartData = {
-        labels: ['A', 'B', 'C', 'D', 'E'],
-        datasets: [{
-            label: 'Ranking',
-            backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
-            borderColor: window.chartColors.red,
-            borderWidth: 1,
-            data: [
-                100,
-                80,
-                60,
-                40,
-                20,
-                10
-            ]
-        }]
+    let president, vice_president, secretary, treasurer, pio, auditor, s_arms, dept_reps;
+    let votes = [];
 
-    };
+    $(document).on('change', '.president', function(e){
+        e.preventDefault();
+        president = $(this).val();
+    });
 
-    window.onload = function() {
-        var ctx = document.getElementById('canvas').getContext('2d');
-        window.myBar = new Chart(ctx, {
-            type: 'bar',
-            data: barChartData,
-            options: { 
-                responsive: true,
-                legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: true,
-                    text: 'ONLINE VOTING SYSTEM ANALYTICS'
-                }
+    $(document).on('change', '.vice_pres', function(e){
+        e.preventDefault();
+        vice_president = $(this).val();
+    });
+
+    $(document).on('change', '.secretary', function(e){
+        e.preventDefault();
+        secretary = $(this).val();
+    });
+
+    $(document).on('change', '.treasurer', function(e){
+        e.preventDefault();
+        treasurer = $(this).val();
+    });
+    
+    $(document).on('change', '.PIO', function(e){
+        e.preventDefault();
+        pio = $(this).val();
+    });
+
+    $(document).on('change', '.auditor', function(e){
+        e.preventDefault();
+        auditor = $(this).val();
+    });
+
+    $(document).on('change', '.sergeant_at_arms', function(e){
+        e.preventDefault();
+        s_arms = $(this).val();
+    });
+
+    $(document).on('change', '.representatives', function(e){
+        e.preventDefault();
+        dept_reps = $(this).val();
+    });
+
+    $(document).on('click', '.send-votes', function(e){
+        e.preventDefault();
+        alert(president);
+        let poll = $(this).val();
+        let data = {
+            'poll_no': poll,
+            'president': president,
+            'vice_president': vice_president,
+            'secretary': secretary,
+            'treasurer': treasurer,
+            'PIO': pio,
+            'auditor': auditor,
+            'sergeant_at_arms': s_arms,
+            'dept_representatives': dept_reps
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "../../controller/update/vote.php",
+            data: { 
+                data: data   
+            },
+            success: function(response){
+                alert(response);
+            },
+            error: function(xhr, ajaxOptions, thrownError){
+                alert(thrownError);
             }
         });
-    };
+    });
+
+    $(document).on('click', '.statistics', function(e){
+        e.preventDefault();
+        let value = $(this).val();
+        $('#stat-title').text("RESULTS OF POLL # " + value);
+
+        $.ajax({
+            type: "POST",
+            url: "../../controller/modal/statistics.php",
+            data: { 
+                data: value   
+            },
+            success: function(html){
+                $('#stats-body').html(html);
+                $('#statistics').modal('show');
+            },
+            error: function(xhr, ajaxOptions, thrownError){
+                alert(thrownError);
+            }
+        });
+    });
 </script>
 
 </body>

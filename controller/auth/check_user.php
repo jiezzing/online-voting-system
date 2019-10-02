@@ -17,6 +17,7 @@
     if ($row = $sel->fetch(PDO::FETCH_ASSOC)) {
         $_SESSION['username'] = $row['voters_username'];
         $_SESSION['password'] = $row['voters_password'];
+        $_SESSION['name'] = $row['user_fullname'];
         $_SESSION['isLoggedIn'] = 1;
     }
 
