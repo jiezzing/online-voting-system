@@ -103,6 +103,25 @@
 				return false;
 			}
 			return $sel;
+		}
+
+		// Update rcp file
+		public function updateUserDetails($name, $pos, $age, $address, $motto, $achievements){
+			$query = "UPDATE users_profile SET pos_id='".$pos."', user_fullname='".$name."', user_age='".$age."', user_address='".$address."', user_motto='".$motto."', user_achievements='".$achievements."', user_image=NULL WHERE voters_id=?";
+			$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+			$sel = $this->conn->prepare($query);
+
+			$sel->bindParam(1, $this->voters_id);
+
+			if($sel->execute())
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+			return $sel;
         }
     }
 ?>

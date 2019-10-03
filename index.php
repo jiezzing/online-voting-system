@@ -98,7 +98,7 @@
                 data: data 
             },
             success: function(response){
-                alert(response);
+                alert("HAHA");
                 window.location = "controller/auth/check_access.php";
             },
             error: function(xhr, ajaxOptions, thrownError){

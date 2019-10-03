@@ -23,7 +23,7 @@
 
         // Check user type
 		public function checkType(){
-			$query = " SELECT * FROM users_account_file, users_profile WHERE voters_username=? AND voters_password=? AND users_account_file.voters_id=users_profile.voters_id";
+			$query = " SELECT * FROM users_account_file, users_profile WHERE (voters_username=? AND voters_password=?) AND users_account_file.voters_id=users_profile.voters_id";
 			$this->conn->setAttribute( PDO::ATTR_ERRMODE, PDO:: ERRMODE_WARNING);
 			$sel = $this->conn->prepare($query);
 
@@ -179,6 +179,16 @@
 			$sel = $this->conn->prepare($query);
 
 			$sel->bindParam(1, $this->poll_no);
+			$sel->execute();
+			return $sel;
+        }
+		
+        // Get all president
+		public function getPersonalDetails($id){
+			$query = " SELECT * FROM users_profile, positions_file WHERE voters_id='".$id."' AND users_profile.pos_id=positions_file.pos_id";
+			$this->conn->setAttribute( PDO::ATTR_ERRMODE, PDO:: ERRMODE_WARNING);
+			$sel = $this->conn->prepare($query);
+
 			$sel->execute();
 			return $sel;
         }

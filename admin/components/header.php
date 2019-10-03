@@ -12,4 +12,12 @@
     <link href="../../main.css" rel="stylesheet">
     <link rel="stylesheet" href="../../assets/bootstrap-sweetalert/dist/sweetalert.css">
 	<link rel="stylesheet" href="../../assets/css/datatable.bootstrap.min.css">
+    <style>
+        .modal {
+    	overflow-y:auto;
+        }
+        body:not(.modal-open){
+            padding-right: 0px !important;
+        }
+    </style>
 </head>

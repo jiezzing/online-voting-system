@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col-md-12">
         <?php
+            $poll = 0;
             $isPoll = false;
             $query = $select->getPoll();
             while($row = $query->fetch(PDO::FETCH_ASSOC)){
@@ -40,10 +41,11 @@
                                                         <table class="table table-hover table-bordered" id="candidate-table">
                                                             <thead>
                                                                 <tr>
-                                                                    <th>Full Name</th>
-                                                                    <th>Motto</th>
+                                                                    <th colspan="3">Name</th>
+                                                                    <th>Address</th>
+                                                                    <th>Age</th>
                                                                     <th>Votes</th>
-                                                                    <th colspan="2">Actions</th>
+                                                                    <th>Actions</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody> 
@@ -57,17 +59,19 @@
                                                                         while($pres = $president->fetch(PDO::FETCH_ASSOC)){
                                                                             echo'
                                                                             <tr>
-                                                                                <td>'.$pres['user_fullname'].'</td>
-                                                                                <td>'.$pres['user_motto'].'</td>
-                                                                                <td>'.$pres['total_votes'].'</td>
-                                                                                <td style="text-align: center">
-                                                                                    <button class="mb-2 mr-2 btn btn-primary" data-toggle="tooltip" title="See Information" data-placement="bottom" ><i class="fa fa-id-card"></i> See Information</button>
-                                                                                </td>
                                                                                 <td style="text-align: center">
                                                                                     <div class="custom-radio custom-control">
-                                                                                        <input type="radio" id="radio'.$ctr.'-'.$poll.'" name="president-radio-'.$collapse_no.'-'.$poll.'" class="custom-control-input president" value="'.$pres['voters_id'].'">
-                                                                                        <label class="custom-control-label" for="radio'.$ctr.'-'.$poll.'"> Vote</label>
+                                                                                        <input type="radio" id="radio'.$ctr.'-'.$poll.'" name="president-radio-'.$collapse_no.'-'.$poll.'" class="custom-control-input president" value="'.$pres['voters_id'].'" position="president" candidate-name="'.$pres['user_fullname'].'">
+                                                                                        <label class="custom-control-label" for="radio'.$ctr.'-'.$poll.'"><i class="fa fa fa-check"></i></label>
                                                                                     </div>
+                                                                                </td>
+                                                                                <td style="width: 40px"> <img width="40" src="../../assets/images/avatars/1.jpg" alt=""></td>
+                                                                                <td style="width: 160px">'.$pres['user_fullname'].'</td>
+                                                                                <td>'.$pres['user_address'].'</td>
+                                                                                <td>'.$pres['user_age'].'</td>
+                                                                                <td>'.$pres['total_votes'].'</td>
+                                                                                <td style="text-align: center">
+                                                                                <button class="mb-2 mr-2 btn btn-primary details" data-toggle="modal" data-target="#candidate-info" value="'.$pres['user_id'].'"><i class="fa fa-id-card"></i> More Details</button>
                                                                                 </td>
                                                                             </tr>
                                                                             ';
@@ -79,17 +83,19 @@
                                                                         while($vice = $vice_pres->fetch(PDO::FETCH_ASSOC)){
                                                                             echo'
                                                                             <tr>
-                                                                                <td>'.$vice['user_fullname'].'</td>
-                                                                                <td>'.$vice['user_motto'].'</td>
-                                                                                <td>'.$vice['total_votes'].'</td>
-                                                                                <td style="text-align: center">
-                                                                                <button class="mb-2 mr-2 btn btn-primary" data-toggle="tooltip" title="See Information" data-placement="bottom" ><i class="fa fa-id-card"></i> See Information</button>
-                                                                                </td>
                                                                                 <td style="text-align: center">
                                                                                     <div class="custom-radio custom-control">
-                                                                                    <input type="radio" id="radio'.$ctr.'-'.$poll.'" name="vice_pres-radio-'.$collapse_no.'-'.$poll.'" class="custom-control-input vice_pres" value="'.$vice['voters_id'].'">
-                                                                                    <label class="custom-control-label" for="radio'.$ctr.'-'.$poll.'"> Vote</label>
+                                                                                    <input type="radio" id="radio'.$ctr.'-'.$poll.'" name="vice_pres-radio-'.$collapse_no.'-'.$poll.'" class="custom-control-input vice_pres" value="'.$vice['voters_id'].'" position="vice-president" candidate-name="'.$vice['user_fullname'].'">
+                                                                                    <label class="custom-control-label" for="radio'.$ctr.'-'.$poll.'"><i class="fa fa fa-check"></i></label>
                                                                                     </div>
+                                                                                </td>
+                                                                                <td style="width: 40px"> <img width="40" src="../../assets/images/avatars/1.jpg" alt=""></td>
+                                                                                <td style="width: 160px">'.$vice['user_fullname'].'</td>
+                                                                                <td>'.$vice['user_address'].'</td>
+                                                                                <td>'.$vice['user_age'].'</td>
+                                                                                <td>'.$vice['total_votes'].'</td>
+                                                                                <td style="text-align: center">
+                                                                                <button class="mb-2 mr-2 btn btn-primary details" data-toggle="modal" data-target="#candidate-info" value="'.$vice['user_id'].'"><i class="fa fa-id-card"></i> More Details</button>
                                                                                 </td>
                                                                             </tr>
                                                                             ';
@@ -101,17 +107,19 @@
                                                                         while($sec = $secretary->fetch(PDO::FETCH_ASSOC)){
                                                                             echo'
                                                                             <tr>
-                                                                                <td>'.$sec['user_fullname'].'</td>
-                                                                                <td>'.$sec['user_motto'].'</td>
-                                                                                <td>'.$sec['total_votes'].'</td>
-                                                                                <td style="text-align: center">
-                                                                                <button class="mb-2 mr-2 btn btn-primary" data-toggle="tooltip" title="See Information" data-placement="bottom" ><i class="fa fa-id-card"></i> See Information</button>
-                                                                                </td>
                                                                                 <td style="text-align: center">
                                                                                     <div class="custom-radio custom-control">
-                                                                                    <input type="radio" id="radio'.$ctr.'-'.$poll.'" name="secretary-radio-'.$collapse_no.'-'.$poll.'" class="custom-control-input secretary" value="'.$sec['voters_id'].'">
-                                                                                    <label class="custom-control-label" for="radio'.$ctr.'-'.$poll.'"> Vote</label>
+                                                                                    <input type="radio" id="radio'.$ctr.'-'.$poll.'" name="secretary-radio-'.$collapse_no.'-'.$poll.'" class="custom-control-input secretary" value="'.$sec['voters_id'].'" position="secretary" candidate-name="'.$sec['user_fullname'].'">
+                                                                                    <label class="custom-control-label" for="radio'.$ctr.'-'.$poll.'"><i class="fa fa fa-check"></i></label>
                                                                                     </div>
+                                                                                </td>
+                                                                                <td style="width: 40px"> <img width="40" src="../../assets/images/avatars/1.jpg" alt=""></td>
+                                                                                <td style="width: 160px">'.$sec['user_fullname'].'</td>
+                                                                                <td>'.$sec['user_address'].'</td>
+                                                                                <td>'.$sec['user_age'].'</td>
+                                                                                <td>'.$sec['total_votes'].'</td>
+                                                                                <td style="text-align: center">
+                                                                                <button class="mb-2 mr-2 btn btn-primary details" data-toggle="modal" data-target="#candidate-info" value="'.$sec['user_id'].'"><i class="fa fa-id-card"></i> More Details</button>
                                                                                 </td>
                                                                             </tr>
                                                                             ';
@@ -123,17 +131,19 @@
                                                                         while($tres = $treasurer->fetch(PDO::FETCH_ASSOC)){
                                                                             echo'
                                                                             <tr>
-                                                                                <td>'.$tres['user_fullname'].'</td>
-                                                                                <td>'.$tres['user_motto'].'</td>
-                                                                                <td>'.$tres['total_votes'].'</td>
-                                                                                <td style="text-align: center">
-                                                                                <button class="mb-2 mr-2 btn btn-primary" data-toggle="tooltip" title="See Information" data-placement="bottom" ><i class="fa fa-id-card"></i> See Information</button>
-                                                                                </td>
                                                                                 <td style="text-align: center">
                                                                                     <div class="custom-radio custom-control">
-                                                                                    <input type="radio" id="radio'.$ctr.'-'.$poll.'" name="treasurer-radio-'.$collapse_no.'-'.$poll.'" class="custom-control-input treasurer" value="'.$tres['voters_id'].'">
-                                                                                    <label class="custom-control-label" for="radio'.$ctr.'-'.$poll.'"> Vote</label>
+                                                                                    <input type="radio" id="radio'.$ctr.'-'.$poll.'" name="treasurer-radio-'.$collapse_no.'-'.$poll.'" class="custom-control-input treasurer" value="'.$tres['voters_id'].'" position="treasurer" candidate-name="'.$tres['user_fullname'].'">
+                                                                                    <label class="custom-control-label" for="radio'.$ctr.'-'.$poll.'"><i class="fa fa fa-check"></i></label>
                                                                                     </div>
+                                                                                </td>
+                                                                                <td style="width: 40px"> <img width="40" src="../../assets/images/avatars/1.jpg" alt=""></td>
+                                                                                <td style="width: 160px">'.$tres['user_fullname'].'</td>
+                                                                                <td>'.$tres['user_address'].'</td>
+                                                                                <td>'.$tres['user_age'].'</td>
+                                                                                <td>'.$tres['total_votes'].'</td>
+                                                                                <td style="text-align: center">
+                                                                                <button class="mb-2 mr-2 btn btn-primary details" data-toggle="modal" data-target="#candidate-info" value="'.$tres['user_id'].'"><i class="fa fa-id-card"></i> More Details</button>
                                                                                 </td>
                                                                             </tr>
                                                                             ';
@@ -145,17 +155,19 @@
                                                                         while($pio = $PIO->fetch(PDO::FETCH_ASSOC)){
                                                                             echo'
                                                                             <tr>
-                                                                                <td>'.$pio['user_fullname'].'</td>
-                                                                                <td>'.$pio['user_motto'].'</td>
-                                                                                <td>'.$pio['total_votes'].'</td>
-                                                                                <td style="text-align: center">
-                                                                                <button class="mb-2 mr-2 btn btn-primary" data-toggle="tooltip" title="See Information" data-placement="bottom" ><i class="fa fa-id-card"></i> See Information</button>
-                                                                                </td>
                                                                                 <td style="text-align: center">
                                                                                     <div class="custom-radio custom-control">
-                                                                                    <input type="radio" id="radio'.$ctr.'-'.$poll.'" name="PIO-radio-'.$collapse_no.'-'.$poll.'" class="custom-control-input PIO" value="'.$pio['voters_id'].'">
-                                                                                    <label class="custom-control-label" for="radio'.$ctr.'-'.$poll.'"> Vote</label>
+                                                                                    <input type="radio" id="radio'.$ctr.'-'.$poll.'" name="PIO-radio-'.$collapse_no.'-'.$poll.'" class="custom-control-input PIO" value="'.$pio['voters_id'].'" position="pio" candidate-name="'.$pio['user_fullname'].'">
+                                                                                    <label class="custom-control-label" for="radio'.$ctr.'-'.$poll.'"><i class="fa fa fa-check"></i></label>
                                                                                     </div>
+                                                                                </td>
+                                                                                <td style="width: 40px"> <img width="40" src="../../assets/images/avatars/1.jpg" alt=""></td>
+                                                                                <td style="width: 160px">'.$pio['user_fullname'].'</td>
+                                                                                <td>'.$pio['user_address'].'</td>
+                                                                                <td>'.$pio['user_age'].'</td>
+                                                                                <td>'.$pio['total_votes'].'</td>
+                                                                                <td style="text-align: center">
+                                                                                    <button class="mb-2 mr-2 btn btn-primary details" data-toggle="modal" data-target="#candidate-info" value="'.$pio['user_id'].'"><i class="fa fa-id-card"></i> More Details</button>
                                                                                 </td>
                                                                             </tr>
                                                                             ';
@@ -167,17 +179,19 @@
                                                                         while($audit = $auditor->fetch(PDO::FETCH_ASSOC)){
                                                                             echo'
                                                                             <tr>
-                                                                                <td>'.$audit['user_fullname'].'</td>
-                                                                                <td>'.$audit['user_motto'].'</td>
-                                                                                <td>'.$audit['total_votes'].'</td>
-                                                                                <td style="text-align: center">
-                                                                                <button class="mb-2 mr-2 btn btn-primary" data-toggle="tooltip" title="See Information" data-placement="bottom" ><i class="fa fa-id-card"></i> See Information</button>
-                                                                                </td>
                                                                                 <td style="text-align: center">
                                                                                     <div class="custom-radio custom-control">
-                                                                                    <input type="radio" id="radio'.$ctr.'-'.$poll.'" name="auditor-radio-'.$collapse_no.'-'.$poll.'" class="custom-control-input auditor" value="'.$audit['voters_id'].'">
-                                                                                    <label class="custom-control-label" for="radio'.$ctr.'-'.$poll.'"> Vote</label>
+                                                                                    <input type="radio" id="radio'.$ctr.'-'.$poll.'" name="auditor-radio-'.$collapse_no.'-'.$poll.'" class="custom-control-input auditor" value="'.$audit['voters_id'].'" position="audit" candidate-name="'.$audit['user_fullname'].'">
+                                                                                    <label class="custom-control-label" for="radio'.$ctr.'-'.$poll.'"><i class="fa fa fa-check"></i></label>
                                                                                     </div>
+                                                                                </td>
+                                                                                <td style="width: 40px"> <img width="40" src="../../assets/images/avatars/1.jpg" alt=""></td>
+                                                                                <td style="width: 160px">'.$audit['user_fullname'].'</td>
+                                                                                <td>'.$audit['user_address'].'</td>
+                                                                                <td>'.$audit['user_age'].'</td>
+                                                                                <td>'.$audit['total_votes'].'</td>
+                                                                                <td style="text-align: center">
+                                                                                    <button class="mb-2 mr-2 btn btn-primary details" data-toggle="modal" data-target="#candidate-info" value="'.$audit['user_id'].'"><i class="fa fa-id-card"></i> More Details</button>
                                                                                 </td>
                                                                             </tr>
                                                                             ';
@@ -189,17 +203,19 @@
                                                                         while($arms = $sergeant_at_arms->fetch(PDO::FETCH_ASSOC)){
                                                                             echo'
                                                                             <tr>
-                                                                                <td>'.$arms['user_fullname'].'</td>
-                                                                                <td>'.$arms['user_motto'].'</td>
-                                                                                <td>'.$arms['total_votes'].'</td>
-                                                                                <td style="text-align: center">
-                                                                                <button class="mb-2 mr-2 btn btn-primary" data-toggle="tooltip" title="See Information" data-placement="bottom" ><i class="fa fa-id-card"></i> See Information</button>
-                                                                                </td>
                                                                                 <td style="text-align: center">
                                                                                     <div class="custom-radio custom-control">
-                                                                                        <input type="radio" id="radio'.$ctr.'-'.$poll.'" name="sergeant_at_arms-radio-'.$collapse_no.'-'.$poll.'" class="custom-control-input sergeant_at_arms" value="'.$arms['voters_id'].'">
-                                                                                        <label class="custom-control-label" for="radio'.$ctr.'-'.$poll.'"> Vote</label>
+                                                                                        <input type="radio" id="radio'.$ctr.'-'.$poll.'" name="sergeant_at_arms-radio-'.$collapse_no.'-'.$poll.'" class="custom-control-input sergeant_at_arms" value="'.$arms['voters_id'].'" position="arms" candidate-name="'.$arms['user_fullname'].'">
+                                                                                        <label class="custom-control-label" for="radio'.$ctr.'-'.$poll.'"><i class="fa fa fa-check"></i></label>
                                                                                     </div>
+                                                                                </td>
+                                                                                <td style="width: 40px"> <img width="40" src="../../assets/images/avatars/1.jpg" alt=""></td>
+                                                                                <td style="width: 160px">'.$arms['user_fullname'].'</td>
+                                                                                <td>'.$arms['user_address'].'</td>
+                                                                                <td>'.$arms['user_age'].'</td>
+                                                                                <td>'.$arms['total_votes'].'</td>
+                                                                                <td style="text-align: center">
+                                                                                    <button class="mb-2 mr-2 btn btn-primary details" data-toggle="modal" data-target="#candidate-info" value="'.$arms['user_id'].'"><i class="fa fa-id-card"></i> More Details</button>
                                                                                 </td>
                                                                             </tr>
                                                                             ';
@@ -212,17 +228,19 @@
                                                                         while($rep = $representatives->fetch(PDO::FETCH_ASSOC)){
                                                                             echo'
                                                                             <tr>
-                                                                                <td>'.$rep['user_fullname'].'</td>
-                                                                                <td>'.$rep['user_motto'].'</td>
-                                                                                <td>'.$rep['total_votes'].'</td>
-                                                                                <td style="text-align: center">
-                                                                                <button class="mb-2 mr-2 btn btn-primary" data-toggle="tooltip" title="See Information" data-placement="bottom" ><i class="fa fa-id-card"></i> See Information</button>
-                                                                                </td>
                                                                                 <td style="text-align: center">
                                                                                     <div class="custom-radio custom-control">
-                                                                                        <input type="radio" id="radio'.$ctr.'-'.$poll.'" name="representatives-radio-'.$collapse_no.'-'.$poll.'" class="custom-control-input representatives" value="'.$rep['voters_id'].'">
-                                                                                        <label class="custom-control-label" for="radio'.$ctr.'-'.$poll.'"> Vote</label>
+                                                                                        <input type="radio" id="radio'.$ctr.'-'.$poll.'" name="representatives-radio-'.$collapse_no.'-'.$poll.'" class="custom-control-input representatives" value="'.$rep['voters_id'].'" position="reps" candidate-name="'.$rep['user_fullname'].'">
+                                                                                        <label class="custom-control-label" for="radio'.$ctr.'-'.$poll.'"><i class="fa fa fa-check"></i></label>
                                                                                     </div>
+                                                                                </td>
+                                                                                <td style="width: 40px"> <img width="40" src="../../assets/images/avatars/1.jpg" alt=""></td>
+                                                                                <td style="width: 160px">'.$rep['user_fullname'].'</td>
+                                                                                <td>'.$rep['user_address'].'</td>
+                                                                                <td>'.$rep['user_age'].'</td>
+                                                                                <td>'.$rep['total_votes'].'</td>
+                                                                                <td style="text-align: center">
+                                                                                    <button class="mb-2 mr-2 btn btn-primary details" data-toggle="modal" data-target="#candidate-info" value="'.$rep['user_id'].'"><i class="fa fa-id-card"></i> More Details</button>
                                                                                 </td>
                                                                             </tr>
                                                                             ';
@@ -241,7 +259,6 @@
                                     }
 
                                 echo'
-                                    <button type="button" class="btn ml-2  mb-2 mt-4 btn-danger send-votes float-right col-md-4" value="'.$row['poll_no'].'" id="vote-btn'.$row['poll_no'].'">Send Votes</button>
                                     </div>
                                 </div>
                             </div>

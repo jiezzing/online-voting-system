@@ -90,6 +90,26 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade bd-example-modal-md" id="candidate-info" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="candidate-info-body">
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="register-btn">Register Candidate</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <?php 
         include '../../voter/components/navbar.php';  
         include '../../voter/components/sidebar.php'; 
@@ -265,47 +285,65 @@
     $(document).on('change', '.president', function(e){
         e.preventDefault();
         president = $(this).val();
+        let name = $("input[position=president]:checked").attr('candidate-name');
+        $('#pres-subhead').text(name);
     });
 
     $(document).on('change', '.vice_pres', function(e){
         e.preventDefault();
         vice_president = $(this).val();
+        let name = $("input[position=vice-president]:checked").attr('candidate-name');
+        $('#v-pres-subhead').text(name);
     });
 
     $(document).on('change', '.secretary', function(e){
         e.preventDefault();
         secretary = $(this).val();
+        let name = $("input[position=secretary]:checked").attr('candidate-name');
+        $('#sec-subhead').text(name);
     });
 
     $(document).on('change', '.treasurer', function(e){
         e.preventDefault();
         treasurer = $(this).val();
+        let name = $("input[position=treasurer]:checked").attr('candidate-name');
+        $('#tres-subhead').text(name);
     });
     
     $(document).on('change', '.PIO', function(e){
         e.preventDefault();
         pio = $(this).val();
+        let name = $("input[position=pio]:checked").attr('candidate-name');
+        $('#pio-subhead').text(name);
     });
 
     $(document).on('change', '.auditor', function(e){
         e.preventDefault();
         auditor = $(this).val();
+        let name = $("input[position=audit]:checked").attr('candidate-name');
+        $('#aud-subhead').text(name);
     });
 
     $(document).on('change', '.sergeant_at_arms', function(e){
         e.preventDefault();
         s_arms = $(this).val();
+        let name = $("input[position=arms]:checked").attr('candidate-name');
+        $('#arms-subhead').text(name);
     });
 
     $(document).on('change', '.representatives', function(e){
         e.preventDefault();
         dept_reps = $(this).val();
+        let name = $("input[position=reps]:checked").attr('candidate-name');
+        $('#rep-subhead').text(name);
     });
+
+    let dyna;
 
     $(document).on('click', '.send-votes', function(e){
         e.preventDefault();
-        alert(president);
-        let poll = $(this).val();
+        let poll = <?php echo $poll; ?>;
+        dyna = 0;
         let data = {
             'poll_no': poll,
             'president': president,
@@ -347,6 +385,26 @@
             success: function(html){
                 $('#stats-body').html(html);
                 $('#statistics').modal('show');
+            },
+            error: function(xhr, ajaxOptions, thrownError){
+                alert(thrownError);
+            }
+        });
+    });
+
+
+    $(document).on('click', '.details', function(e){
+        e.preventDefault();
+        let id = $(this).val();
+        $.ajax({
+            type: "POST",
+            url: "../../controller/modal/candidate_details.php",
+            data: { 
+                id: id 
+            },
+            success: function(html){
+                $('#candidate-info-body').html(html);
+                $('#candidate-info').modal('show');
             },
             error: function(xhr, ajaxOptions, thrownError){
                 alert(thrownError);

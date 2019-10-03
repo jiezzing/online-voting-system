@@ -34,11 +34,12 @@
                                             </div>
                                             <div data-parent="#accordion-'.$poll.'" id="collapse'.$collapse_no.'-'.$poll.'" aria-labelledby="headingOne" class="collapse">
                                                 <div class="card-body">
-                                                    <table class="table table-hover table-bordered" id="candidate-table">
+                                                    <table class="table table-hover table-bordered" id="candidate-table" >
                                                         <thead>
                                                             <tr>
-                                                                <th>Full Name</th>
-                                                                <th>Motto</th>
+                                                                <th colspan="2">Name</th>
+                                                                <th>Address</th>
+                                                                <th>Age</th>
                                                                 <th>Votes</th>
                                                                 <th>Actions</th>
                                                             </tr>
@@ -54,11 +55,14 @@
                                                                     while($pres = $president->fetch(PDO::FETCH_ASSOC)){
                                                                         echo'
                                                                         <tr>
-                                                                            <td>'.$pres['user_fullname'].'</td>
-                                                                            <td>'.$pres['user_motto'].'</td>
+                                                                            <td style="width: 40px"> <img width="40" src="../../assets/images/avatars/1.jpg" alt=""></td>
+                                                                            <td style="width: 160px">'.$pres['user_fullname'].'</td>
+                                                                            <td>'.$pres['user_address'].'</td>
+                                                                            <td>'.$pres['user_age'].'</td>
                                                                             <td>'.$pres['total_votes'].'</td>
                                                                             <td style="text-align: center">
-                                                                                <button class="mb-2 mr-2 btn btn-primary" data-toggle="tooltip" title="See Information" data-placement="bottom" ><i class="fa fa-id-card"></i> See Information</button>
+                                                                                <button class="mb-2 mr-2 btn btn-primary details" data-toggle="modal" data-target="#candidate-info" value="'.$pres['user_id'].'"><i class="fa fa-id-card"></i> More Details</button>
+                                                                                <button class="mb-2 mr-2 btn btn-success edit-details" data-toggle="modal" data-target="#edit-candidate-info" value="'.$pres['user_id'].'"><i class="fa fa-edit"></i> Update</button>
                                                                             </td>
                                                                         </tr>
                                                                         ';
@@ -69,12 +73,15 @@
                                                                     $vice_pres = $select->getVicePresident($i);
                                                                     while($vice = $vice_pres->fetch(PDO::FETCH_ASSOC)){
                                                                         echo'
-                                                                        <tr>
+                                                                        <tr> 
+                                                                            <td style="width: 40px"> <img width="40" src="../../assets/images/avatars/1.jpg" alt=""></td>
                                                                             <td>'.$vice['user_fullname'].'</td>
-                                                                            <td>'.$vice['user_motto'].'</td>
+                                                                            <td>'.$vice['user_address'].'</td>
+                                                                            <td>'.$vice['user_age'].'</td>
                                                                             <td>'.$vice['total_votes'].'</td>
                                                                             <td style="text-align: center">
-                                                                                <button class="mb-2 mr-2 btn btn-primary" data-toggle="tooltip" title="See Information" data-placement="bottom" ><i class="fa fa-id-card"></i> See Information</button>
+                                                                                <button class="mb-2 mr-2 btn btn-primary details" data-toggle="modal" data-target="#candidate-info" value="'.$vice['user_id'].'"><i class="fa fa-id-card"></i> See Information</button>
+                                                                                <button class="mb-2 mr-2 btn btn-success edit-details" data-toggle="modal" data-target="#edit-candidate-info" value="'.$vice['user_id'].'"><i class="fa fa-edit"></i> Update</button>
                                                                             </td>
                                                                         </tr>
                                                                         ';
@@ -86,11 +93,14 @@
                                                                     while($sec = $secretary->fetch(PDO::FETCH_ASSOC)){
                                                                         echo'
                                                                         <tr>
+                                                                            <td style="width: 40px"> <img width="40" src="../../assets/images/avatars/1.jpg" alt=""></td>
                                                                             <td>'.$sec['user_fullname'].'</td>
-                                                                            <td>'.$sec['user_motto'].'</td>
+                                                                            <td>'.$sec['user_address'].'</td>
+                                                                            <td>'.$sec['user_age'].'</td>
                                                                             <td>'.$sec['total_votes'].'</td>
                                                                             <td style="text-align: center">
-                                                                                <button class="mb-2 mr-2 btn btn-primary" data-toggle="tooltip" title="See Information" data-placement="bottom" ><i class="fa fa-id-card"></i> See Information</button>
+                                                                                <button class="mb-2 mr-2 btn btn-primary details" data-toggle="modal" data-target="#candidate-info" value="'.$sec['user_id'].'"><i class="fa fa-id-card"></i> See Information</button>
+                                                                                <button class="mb-2 mr-2 btn btn-success edit-details" data-toggle="modal" data-target="#edit-candidate-info" value="'.$sec['user_id'].'"><i class="fa fa-edit"></i> Update</button>
                                                                             </td>
                                                                         </tr>
                                                                         ';
@@ -102,11 +112,14 @@
                                                                     while($tres = $treasurer->fetch(PDO::FETCH_ASSOC)){
                                                                         echo'
                                                                         <tr>
+                                                                            <td style="width: 40px"> <img width="40" src="../../assets/images/avatars/1.jpg" alt=""></td>
                                                                             <td>'.$tres['user_fullname'].'</td>
-                                                                            <td>'.$tres['user_motto'].'</td>
+                                                                            <td>'.$tres['user_address'].'</td>
+                                                                            <td>'.$tres['user_age'].'</td>
                                                                             <td>'.$tres['total_votes'].'</td>
                                                                             <td style="text-align: center">
-                                                                                <button class="mb-2 mr-2 btn btn-primary" data-toggle="tooltip" title="See Information" data-placement="bottom" ><i class="fa fa-id-card"></i> See Information</button>
+                                                                                <button class="mb-2 mr-2 btn btn-primary details" data-toggle="modal" data-target="#candidate-info" value="'.$tres['user_id'].'"><i class="fa fa-id-card"></i> See Information</button>
+                                                                                <button class="mb-2 mr-2 btn btn-success edit-details" data-toggle="modal" data-target="#edit-candidate-info" value="'.$tres['user_id'].'"><i class="fa fa-edit"></i> Update</button>
                                                                             </td>
                                                                         </tr>
                                                                         ';
@@ -118,11 +131,14 @@
                                                                     while($pio = $PIO->fetch(PDO::FETCH_ASSOC)){
                                                                         echo'
                                                                         <tr>
+                                                                            <td style="width: 40px"> <img width="40" src="../../assets/images/avatars/1.jpg" alt=""></td>
                                                                             <td>'.$pio['user_fullname'].'</td>
-                                                                            <td>'.$pio['user_motto'].'</td>
+                                                                            <td>'.$pio['user_address'].'</td>
+                                                                            <td>'.$pio['user_age'].'</td>
                                                                             <td>'.$pio['total_votes'].'</td>
                                                                             <td style="text-align: center">
-                                                                                <button class="mb-2 mr-2 btn btn-primary" data-toggle="tooltip" title="See Information" data-placement="bottom" ><i class="fa fa-id-card"></i> See Information</button>
+                                                                                <button class="mb-2 mr-2 btn btn-primary details" data-toggle="modal" data-target="#candidate-info" value="'.$pio['user_id'].'"><i class="fa fa-id-card"></i> See Information</button>
+                                                                                <button class="mb-2 mr-2 btn btn-success edit-details" data-toggle="modal" data-target="#edit-candidate-info" value="'.$pio['user_id'].'"><i class="fa fa-edit"></i> Update</button>
                                                                             </td>
                                                                         </tr>
                                                                         ';
@@ -134,11 +150,14 @@
                                                                     while($audit = $auditor->fetch(PDO::FETCH_ASSOC)){
                                                                         echo'
                                                                         <tr>
+                                                                            <td style="width: 40px"> <img width="40" src="../../assets/images/avatars/1.jpg" alt=""></td>
                                                                             <td>'.$audit['user_fullname'].'</td>
-                                                                            <td>'.$audit['user_motto'].'</td>
+                                                                            <td>'.$audit['user_address'].'</td>
+                                                                            <td>'.$audit['user_age'].'</td>
                                                                             <td>'.$audit['total_votes'].'</td>
                                                                             <td style="text-align: center">
-                                                                                <button class="mb-2 mr-2 btn btn-primary" data-toggle="tooltip" title="See Information" data-placement="bottom" ><i class="fa fa-id-card"></i> See Information</button>
+                                                                                <button class="mb-2 mr-2 btn btn-primary details" data-toggle="modal" data-target="#candidate-info" value="'.$audit['user_id'].'"><i class="fa fa-id-card"></i> See Information</button>
+                                                                                <button class="mb-2 mr-2 btn btn-success edit-details" data-toggle="modal" data-target="#edit-candidate-info" value="'.$audit['user_id'].'"><i class="fa fa-edit"></i> Update</button>
                                                                             </td>
                                                                         </tr>
                                                                         ';
@@ -150,11 +169,14 @@
                                                                     while($arms = $sergeant_at_arms->fetch(PDO::FETCH_ASSOC)){
                                                                         echo'
                                                                         <tr>
+                                                                            <td style="width: 40px"> <img width="40" src="../../assets/images/avatars/1.jpg" alt=""></td>
                                                                             <td>'.$arms['user_fullname'].'</td>
-                                                                            <td>'.$arms['user_motto'].'</td>
+                                                                            <td>'.$arms['user_address'].'</td>
+                                                                            <td>'.$arms['user_age'].'</td>
                                                                             <td>'.$arms['total_votes'].'</td>
                                                                             <td style="text-align: center">
-                                                                                <button class="mb-2 mr-2 btn btn-primary" data-toggle="tooltip" title="See Information" data-placement="bottom" ><i class="fa fa-id-card"></i> See Information</button>
+                                                                                <button class="mb-2 mr-2 btn btn-primary details" data-toggle="modal" data-target="#candidate-info" value="'.$arms['user_id'].'"><i class="fa fa-id-card"></i> See Information</button>
+                                                                                <button class="mb-2 mr-2 btn btn-success edit-details" data-toggle="modal" data-target="#edit-candidate-info" value="'.$arms['user_id'].'"><i class="fa fa-edit"></i> Update</button>
                                                                             </td>
                                                                         </tr>
                                                                         ';
@@ -167,12 +189,15 @@
                                                                     while($rep = $representatives->fetch(PDO::FETCH_ASSOC)){
                                                                         echo'
                                                                         <tr>
+                                                                            <td style="width: 40px"> <img width="40" src="../../assets/images/avatars/1.jpg" alt=""></td>
                                                                             <td>'.$rep['user_fullname'].'</td>
-                                                                            <td>'.$rep['user_motto'].'</td>
+                                                                            <td>'.$rep['user_address'].'</td>
+                                                                            <td>'.$rep['user_age'].'</td>
                                                                             <td>'.$rep['total_votes'].'</td>
                                                                             <td style="text-align: center">
-                                                                                <button class="mb-2 mr-2 btn btn-primary" data-toggle="tooltip" title="See Information" data-placement="bottom" ><i class="fa fa-id-card"></i> See Information</button>
-                                                                            </td>
+                                                                                <button class="mb-2 mr-2 btn btn-primary details" data-toggle="modal" data-target="#candidate-info" value="'.$rep['user_id'].'"><i class="fa fa-id-card"></i> See Information</button>
+                                                                                <button class="mb-2 mr-2 btn btn-success edit-details" data-toggle="modal" data-target="#edit-candidate-info" value="'.$rep['user_id'].'"><i class="fa fa-edit"></i> Update</button>
+                                                                            </td>   
                                                                         </tr>
                                                                         ';
                                                                         $ctr++;

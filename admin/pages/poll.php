@@ -149,6 +149,48 @@
             </div>
         </div>
     </div>
+
+
+    <div class="modal fade bd-example-modal-md" id="candidate-info" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="candidate-info-body">
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="register-btn">Register Candidate</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade bd-example-modal-lg" id="edit-candidate-info" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="edit-candidate-info-body">
+                
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="update-btn">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <?php 
         include '../../admin/components/navbar.php';  
         include '../../admin/components/sidebar.php'; 
@@ -164,6 +206,7 @@
 
 <script src="../../assets/bootstrap-sweetalert/dist/sweetalert.js"></script>
 <script src="../../assets/bootstrap-sweetalert/dist/sweetalert.min.js"></script>
+<script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
 
 <script>
     let poll_no;
@@ -354,6 +397,80 @@
             }
         });
     };
+
+    $(document).on('click', '.details', function(e){
+        e.preventDefault();
+        let id = $(this).val();
+        $.ajax({
+            type: "POST",
+            url: "../../controller/modal/candidate_details.php",
+            data: { 
+                id: id 
+            },
+            success: function(html){
+                $('#candidate-info-body').html(html);
+                $('#candidate-info').modal('show');
+            },
+            error: function(xhr, ajaxOptions, thrownError){
+                alert(thrownError);
+            }
+        });
+    });
+
+
+    let upd_id;
+    $(document).on('click', '.edit-details', function(e){
+        e.preventDefault();
+        let id = $(this).val();
+        upd_id = id;
+        $.ajax({
+            type: "POST",
+            url: "../../controller/modal/edit_candidate_details.php",
+            data: { 
+                id: id 
+            },
+            success: function(html){
+                $('#edit-candidate-info-body').html(html);
+                $('#edit-candidate-info').modal('show');
+            },
+            error: function(xhr, ajaxOptions, thrownError){
+                alert(thrownError);
+            }
+        });
+    });
+
+    $('#update-btn').click(function(){
+        let fullname = $('#edit-form').find('input[name="fullname"]').val();
+        let position = $('#edit-form').find('select[name="position"]').val();
+        let age = $('#edit-form').find('input[name="age"]').val();
+        let address = $('#edit-form').find('input[name="address"]').val();
+        let motto = $('#edit-form').find('input[name="motto"]').val();
+        let achievements = $('#edit-form').find('textarea[name="achievements"]').val();
+        let image = $('#edit-form').find('input[name="image"]').val();
+        let data = {
+            'voters_id': upd_id,
+            'name': fullname,
+            'pos_id': position,
+            'age': age,
+            'address': address,
+            'motto': motto,
+            'achievements': achievements
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "../../controller/update/update_candidate_details.php",
+            data: { 
+                data: data 
+            },
+            success: function(response){
+                alert(response);
+            },
+            error: function(xhr, ajaxOptions, thrownError){
+                alert(thrownError);
+            }
+        });
+    });
 </script>
 
 </body>
