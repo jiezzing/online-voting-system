@@ -1,8 +1,11 @@
 <!doctype html>
 <html lang="en">
 <?php 
+    session_start();
+    if(!isset($_SESSION['isLoggedIn'])){
+        header("Location: ../../index.php");
+    }
     $page = 'Users';
-    include '../../controller/auth/auth_checker.php';
     include '../../admin/components/header.php';
     include '../../database/connection.php';
     include '../../model/select_queries.php';

@@ -2,7 +2,14 @@
 <html lang="en">
 <!-- Links or Header   -->
 <?php 
-    include 'controller/auth/auth_checker.php';
+    session_start();
+    if(isset($_SESSION['isLoggedIn'])){
+        if (isset($_SESSION['type_id']) && $_SESSION['type_id'] == 1) {
+            header("Location: admin/pages/poll.php");
+        } else {
+            header("Location: voter/pages/poll.php");
+        }
+    }
     include 'home/header.php';
     include 'database/connection.php';
     include 'model/select_queries.php';
@@ -17,7 +24,6 @@
 <body>
 
 <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header"> 
-    
     <?php 
         include 'home/navbar.php';      
         include 'home/carousel.php';        
@@ -98,7 +104,6 @@
                 data: data 
             },
             success: function(response){
-                alert("HAHA");
                 window.location = "controller/auth/check_access.php";
             },
             error: function(xhr, ajaxOptions, thrownError){

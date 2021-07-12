@@ -1,8 +1,11 @@
 <!doctype html>
 <html lang="en">
 <?php 
+    session_start();
+    if(!isset($_SESSION['isLoggedIn'])){
+        header("Location: ../../index.php");
+    }
     $page = 'Poll';
-    include '../../controller/auth/auth_checker.php';
     include '../../voter/components/header.php';
     include '../../database/connection.php';
     include '../../model/select_queries.php';
@@ -105,7 +108,6 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="register-btn">Register Candidate</button>
                 </div>
             </div>
         </div>
@@ -115,7 +117,7 @@
         include '../../voter/components/sidebar.php'; 
         include '../../voter/components/semi-navbar.php';    
         include '../../voter/components/accordion.php';  
-    ?>   
+    ?>  
 </div>
 
 
@@ -129,6 +131,11 @@
 
 <script>
     let poll_no;
+    toastr.options = {
+        "debug": false,
+        "positionClass": "toast-top-left",
+        "preventDuplicates": true      
+    }
     $('#create-poll-btn').click(function(){
         swal({
             title: "Create new poll?",
@@ -146,7 +153,10 @@
                         data: data 
                     },
                     success: function(response){
-                        alert(response);
+                        if(response == "success")
+                            toastr.success("A new poll has been created. Please reload the page.", "Success", "success");
+                        else
+                            toastr.error("Something went wrong. Please try again.", "Error", "error");
                     },
                     error: function(xhr, ajaxOptions, thrownError){
                         alert(thrownError);
@@ -344,6 +354,7 @@
         e.preventDefault();
         let poll = <?php echo $poll; ?>;
         dyna = 0;
+
         let data = {
             'poll_no': poll,
             'president': president,
@@ -363,7 +374,15 @@
                 data: data   
             },
             success: function(response){
-                alert(response);
+                swal({
+                    title: "Vote sent",
+                    type: "success",
+                    confirmButtonText: "Okay"
+                }, function (data) {
+                    if(data){
+                        location.reload();
+                    }
+                });
             },
             error: function(xhr, ajaxOptions, thrownError){
                 alert(thrownError);
@@ -391,7 +410,6 @@
             }
         });
     });
-
 
     $(document).on('click', '.details', function(e){
         e.preventDefault();

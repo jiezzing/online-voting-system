@@ -15,7 +15,7 @@
                                         <div class="widget-subheading" id="pres-subhead">To Be Decided</div>
                                     </div>
                                     <div class="widget-content-right">
-                                        <img width="40" src="../../assets/images/avatars/1.jpg" alt="">
+                                        <i class="fa fa-user fa-2x"></i>
                                     </div>
                                 </div>
                             </div>
@@ -28,7 +28,7 @@
                                         <div class="widget-subheading" id="v-pres-subhead">To Be Decided</div>
                                     </div>
                                     <div class="widget-content-right">
-                                        <img width="40" src="../../assets/images/avatars/1.jpg" alt="">
+                                        <i class="fa fa-user fa-2x"></i>
                                     </div>
                                 </div>
                             </div>
@@ -41,7 +41,7 @@
                                         <div class="widget-subheading" id="sec-subhead">To Be Decided</div>
                                     </div>
                                     <div class="widget-content-right">
-                                        <img width="40" src="../../assets/images/avatars/1.jpg" alt="">
+                                        <i class="fa fa-user fa-2x"></i>
                                     </div>
                                 </div>
                             </div>
@@ -54,7 +54,7 @@
                                         <div class="widget-subheading" id="tres-subhead">To Be Decided</div>
                                     </div>
                                     <div class="widget-content-right">
-                                        <img width="40" src="../../assets/images/avatars/1.jpg" alt="">
+                                        <i class="fa fa-user fa-2x"></i>
                                     </div>
                                 </div>
                             </div>
@@ -67,7 +67,7 @@
                                         <div class="widget-subheading" id="pio-subhead">To Be Decided</div>
                                     </div>
                                     <div class="widget-content-right">
-                                        <img width="40" src="../../assets/images/avatars/1.jpg" alt="">
+                                        <i class="fa fa-user fa-2x"></i>
                                     </div>
                                 </div>
                             </div>
@@ -80,7 +80,7 @@
                                         <div class="widget-subheading" id="aud-subhead">To Be Decided</div>
                                     </div>
                                     <div class="widget-content-right">
-                                        <img width="40" src="../../assets/images/avatars/1.jpg" alt="">
+                                        <i class="fa fa-user fa-2x"></i>
                                     </div>
                                 </div>
                             </div>
@@ -93,7 +93,7 @@
                                         <div class="widget-subheading" id="arms-subhead">To Be Decided</div>
                                     </div>
                                     <div class="widget-content-right">
-                                        <img width="40" src="../../assets/images/avatars/1.jpg" alt="">
+                                        <i class="fa fa-user fa-2x"></i>
                                     </div>
                                 </div>
                             </div>
@@ -106,7 +106,7 @@
                                         <div class="widget-subheading" id="rep-subhead">To Be Decided</div>
                                     </div>
                                     <div class="widget-content-right">
-                                        <img width="40" src="../../assets/images/avatars/1.jpg" alt="">
+                                        <i class="fa fa-user fa-2x"></i>
                                     </div>
                                 </div>
                             </div>

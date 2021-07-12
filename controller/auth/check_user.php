@@ -19,6 +19,8 @@
         $_SESSION['password'] = base64_decode($row['voters_password']);
         $_SESSION['name'] = $row['user_fullname'];
         $_SESSION['isLoggedIn'] = 1;
+        $_SESSION['voters_id'] = $row['voters_id'];
+        $_SESSION['type_id'] = $row['type_id'];
     }
 
     if($sel)

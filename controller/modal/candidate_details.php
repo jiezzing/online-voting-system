@@ -22,8 +22,8 @@
     echo'
         <form id="registration-form">
             <div class="form-row">
-                <div class="col-md-4">
-                    <img width="120" src="../../assets/images/avatars/1.jpg" alt="">
+                <div class="col-md-4" style="text-align: center">
+                    <i class="fa fa-user fa-4x"></i>
                 </div>
                 <div class="col-md-8">
                     <div class="position-relative form-group">

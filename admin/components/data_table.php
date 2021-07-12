@@ -8,7 +8,6 @@
                             <th>Name</th>
                             <th>Username</th>
                             <th>Password</th>
-                            <th style="width: 35%">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -20,10 +19,6 @@
                                         <td>'.$row['user_fullname'].'</td>
                                         <td>'.$row['voters_username'].'</td>
                                         <td>'.$row['voters_password'].'</td>
-                                        <td>
-                                            <button class="mb-2 mr-2 btn btn-primary"><i class="metismenu-icon pe-7s-edit"></i></button>
-                                            <button class="mb-2 mr-2 btn btn-danger"><i class="metismenu-icon pe-7s-trash"></i></button>
-                                        </td>
                                     </tr>
                                 ';
                             }

@@ -64,7 +64,6 @@
 			return $sel;
 		}
         
-        // Poll detail file
 		public function createPollDetailFile(){
 			$query = "INSERT INTO poll_detail_file(poll_no, user_id, pos_id, total_votes, poll_status) VALUES (?, ?, ?, 0, 3)";
 			$this->conn->setAttribute( PDO::ATTR_ERRMODE, PDO:: ERRMODE_WARNING);
@@ -73,6 +72,22 @@
 			$sel->bindParam(1, $this->poll_no);
 			$sel->bindParam(2, $this->user_id);
 			$sel->bindParam(3, $this->pos_id);
+
+			$sel->execute();
+			return $sel;
+		}
+        
+		public function saveVotes(){
+			$query = "INSERT INTO votes_file(pos_id, voters_id, poll_no, rep_id, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)";
+			$this->conn->setAttribute( PDO::ATTR_ERRMODE, PDO:: ERRMODE_WARNING);
+			$sel = $this->conn->prepare($query);
+
+			$sel->bindParam(1, $this->pos_id);
+			$sel->bindParam(2, $this->voters_id);
+			$sel->bindParam(3, $this->poll_no);
+			$sel->bindParam(4, $this->rep_id);
+			$sel->bindParam(5, $this->created_at);
+			$sel->bindParam(6, $this->updated_at);
 
 			$sel->execute();
 			return $sel;

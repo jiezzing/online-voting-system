@@ -1,8 +1,11 @@
 <!doctype html>
 <html lang="en">
 <?php 
+    session_start();
+    if(!isset($_SESSION['isLoggedIn'])){
+        header("Location: ../../index.php");
+    }
     $page = 'Poll';
-    include '../../controller/auth/auth_checker.php';
     include '../../admin/components/header.php';
     include '../../database/connection.php';
     include '../../model/select_queries.php';
@@ -13,7 +16,6 @@
 ?>
 
 <body>
-
 <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header"> 
     <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -57,12 +59,6 @@
                         </div>
                         <div class="col-md-12">
                             <div class="position-relative form-group"><label for="exampleCity" class="">Achievements</label><textarea name="achievements" id="exampleCity" type="text" class="form-control"></textarea></div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="position-relative form-group">
-                                <label for="exampleCity" class="">Picture / Image</label>
-                                <input name="image" id="imageloader" type="file" class="form-control-file" accept="image/*" data-type='image'>
-                            </div>
                         </div>
                     </div>
                 </form>
@@ -165,7 +161,6 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="register-btn">Register Candidate</button>
                 </div>
             </div>
         </div>
@@ -210,6 +205,12 @@
 
 <script>
     let poll_no;
+    toastr.options = {
+        "debug": false,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": true      
+    }
+
     $('#create-poll-btn').click(function(){
         swal({
             title: "Create new poll?",
@@ -227,7 +228,11 @@
                         data: data 
                     },
                     success: function(response){
-                        alert(response);
+                        if(response == "success")
+                            toastr.success("A new poll has been created. Please reload the page.", "Success", "success");
+                        else
+                            toastr.error("Something went wrong. Please try again.", "Error", "error");
+                        swal.close()
                     },
                     error: function(xhr, ajaxOptions, thrownError){
                         alert(thrownError);
@@ -245,7 +250,6 @@
         let address = $('#registration-form').find('input[name="address"]').val();
         let motto = $('#registration-form').find('input[name="motto"]').val();
         let achievements = $('#registration-form').find('textarea[name="achievements"]').val();
-        let image = $('#registration-form').find('input[name="image"]').val();
         let data = {
             'poll_no': parseFloat(poll_no),
             'type': position,
@@ -253,9 +257,12 @@
             'age': age,
             'address': address,
             'motto': motto,
-            'achievements': achievements,
-            'image': image
+            'achievements': achievements
         };
+
+        if (fullname.trim() === "" || age.trim() === "" || address.trim() === "" || motto.trim() === "" || achievements.trim() === "") {
+            return toastr.error("Some fields are missing.", "Error", "error");
+        }
 
         $.ajax({
             type: "POST",
@@ -264,7 +271,13 @@
                 data: data 
             },
             success: function(response){
-                alert(response);
+                $('#registration-form').find('input[name="fullname"]').val('');
+                $('#registration-form').find('select[name="position"]').val(1);
+                $('#registration-form').find('input[name="age"]').val('');
+                $('#registration-form').find('input[name="address"]').val('')
+                $('#registration-form').find('input[name="motto"]').val('');
+                $('#registration-form').find('textarea[name="achievements"]').val('');
+                return toastr.success("New representative has been successfully registered.", "Success", "success");
             },
             error: function(xhr, ajaxOptions, thrownError){
                 alert(thrownError);
@@ -318,8 +331,6 @@
         });
     });
     
-
-
     $(document).on('click', '.stop', function(e){
         e.preventDefault();
         let id = $(this).val();
@@ -343,7 +354,7 @@
                     success: function(response){
                         $('#stop-btn' + id).attr('disabled', false);
                         swal({
-                            title: "Voting is now clsed",
+                            title: "Voting is now closed",
                             type: "success",
                             confirmButtonText: "Okay"
                         }, function (data) {
@@ -359,44 +370,6 @@
             }
         });
     });
-
-    let color = Chart.helpers.color;
-    let barChartData = {
-        labels: ['A', 'B', 'C', 'D', 'E'],
-        datasets: [{
-            label: 'Ranking',
-            backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
-            borderColor: window.chartColors.red,
-            borderWidth: 1,
-            data: [
-                100,
-                80,
-                60,
-                40,
-                20,
-                10
-            ]
-        }]
-
-    };
-
-    window.onload = function() {
-        var ctx = document.getElementById('canvas').getContext('2d');
-        window.myBar = new Chart(ctx, {
-            type: 'bar',
-            data: barChartData,
-            options: { 
-                responsive: true,
-                legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: true,
-                    text: 'ONLINE VOTING SYSTEM ANALYTICS'
-                }
-            }
-        });
-    };
 
     $(document).on('click', '.details', function(e){
         e.preventDefault();
@@ -468,6 +441,84 @@
             },
             error: function(xhr, ajaxOptions, thrownError){
                 alert(thrownError);
+            }
+        });
+    });
+
+    $(document).on('click', '.delete', function(e){
+        e.preventDefault();
+        let id = $(this).val();
+
+        swal({
+            title: "POLL # " + id,
+            text: "Would you like to delete this poll?",
+            type: "info",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            confirmButtonText: "Yes",
+            cancelButtonClass: 'btn-danger'
+        }, function (data) { 
+            if(data){
+                $.ajax({
+                    type: "POST",
+                    url: "../../controller/delete/delete_poll.php",
+                    data: { 
+                        id: id 
+                    },
+                    success: function(response){
+                        swal({
+                            title: "Poll has been deleted",
+                            type: "success",
+                            confirmButtonText: "Okay"
+                        }, function (data) {
+                            if(data){
+                                location.reload();
+                            }
+                        });
+                    },
+                    error: function(xhr, ajaxOptions, thrownError){
+                        alert(thrownError);
+                    }
+                });
+            }
+        });
+    });
+
+    $(document).on('click', '.delete-representative', function(e){
+        e.preventDefault();
+        let id = $(this).val();
+
+        swal({
+            title: "Confirmation",
+            text: "Would you like this representative?",
+            type: "info",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            confirmButtonText: "Yes",
+            cancelButtonClass: 'btn-danger'
+        }, function (data) {
+            if(data){
+                $.ajax({
+                    type: "POST",
+                    url: "../../controller/delete/delete_representative.php",
+                    data: { 
+                        id: id 
+                    },
+                    success: function(response){
+                        swal({
+                            title: "Deleted",
+                            type: "success",
+                            confirmButtonText: "Okay"
+                        }, function (data) {
+                            if(data){
+                                location.reload();
+                            }
+                        });
+                    },
+                    error: function(xhr, ajaxOptions, thrownError){
+                        alert(thrownError);
+                    }
+                });
             }
         });
     });

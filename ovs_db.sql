@@ -1,398 +1,241 @@
--- phpMyAdmin SQL Dump
--- version 4.9.0.1
--- https://www.phpmyadmin.net/
+-- MySQL dump 10.13  Distrib 8.0.25, for Linux (x86_64)
 --
--- Host: localhost
--- Generation Time: Oct 03, 2019 at 12:55 PM
--- Server version: 10.3.16-MariaDB
--- PHP Version: 7.3.6
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
-
+-- Host: localhost    Database: ovs_db
+-- ------------------------------------------------------
+-- Server version	8.0.25-0ubuntu0.20.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `ovs_db`
---
-
--- --------------------------------------------------------
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
 -- Table structure for table `poll_detail_file`
 --
 
+DROP TABLE IF EXISTS `poll_detail_file`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `poll_detail_file` (
-  `poll_id` int(11) NOT NULL,
-  `poll_no` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `pos_id` int(11) NOT NULL,
-  `total_votes` int(11) NOT NULL,
-  `poll_status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `poll_id` int NOT NULL AUTO_INCREMENT,
+  `poll_no` int NOT NULL,
+  `user_id` int NOT NULL,
+  `pos_id` int NOT NULL,
+  `total_votes` int NOT NULL,
+  `poll_status` int NOT NULL,
+  PRIMARY KEY (`poll_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `poll_detail_file`
 --
 
-INSERT INTO `poll_detail_file` (`poll_id`, `poll_no`, `user_id`, `pos_id`, `total_votes`, `poll_status`) VALUES
-(1, 1, 3, 1, 0, 4),
-(2, 1, 4, 1, 0, 4),
-(3, 1, 5, 1, 3, 4),
-(4, 1, 6, 1, 1, 4),
-(5, 1, 7, 1, 0, 4),
-(6, 1, 8, 2, 0, 4),
-(7, 1, 9, 2, 0, 4),
-(8, 1, 10, 2, 1, 4),
-(9, 1, 11, 2, 3, 4),
-(10, 1, 12, 2, 0, 4),
-(11, 1, 13, 3, 0, 4),
-(12, 1, 14, 3, 0, 4),
-(13, 1, 15, 3, 1, 4),
-(14, 1, 16, 3, 0, 4),
-(15, 1, 17, 3, 3, 4),
-(16, 1, 18, 4, 0, 4),
-(17, 1, 19, 4, 0, 4),
-(18, 1, 20, 4, 1, 4),
-(19, 1, 21, 4, 3, 4),
-(20, 1, 22, 4, 0, 4),
-(21, 1, 23, 5, 1, 4),
-(22, 1, 24, 5, 0, 4),
-(23, 1, 25, 5, 3, 4),
-(24, 1, 26, 5, 0, 4),
-(25, 1, 27, 5, 0, 4),
-(26, 1, 28, 6, 1, 4),
-(27, 1, 29, 6, 0, 4),
-(28, 1, 30, 6, 0, 4),
-(29, 1, 31, 6, 3, 4),
-(30, 1, 32, 6, 0, 4),
-(31, 1, 33, 7, 0, 4),
-(32, 1, 34, 7, 1, 4),
-(33, 1, 35, 7, 3, 4),
-(34, 1, 36, 7, 0, 4),
-(35, 1, 37, 7, 0, 4),
-(36, 1, 38, 8, 0, 4),
-(37, 1, 39, 8, 0, 4),
-(38, 1, 40, 8, 1, 4),
-(39, 1, 41, 8, 3, 4),
-(40, 1, 42, 8, 0, 4);
-
--- --------------------------------------------------------
+LOCK TABLES `poll_detail_file` WRITE;
+/*!40000 ALTER TABLE `poll_detail_file` DISABLE KEYS */;
+INSERT INTO `poll_detail_file` VALUES (1,1,2,1,1,4),(2,1,3,1,8,4),(3,2,5,1,0,4),(4,2,6,1,0,4),(5,2,7,1,0,4),(6,2,8,1,0,4),(7,2,9,2,0,4),(8,2,10,2,0,4),(9,2,11,2,0,4),(10,2,12,2,0,4),(11,4,13,1,0,4),(12,4,14,1,0,4),(13,4,15,1,3,4),(14,4,16,1,1,4),(15,4,17,2,0,4),(16,4,18,2,0,4),(17,4,19,2,1,4),(18,5,20,1,0,4);
+/*!40000 ALTER TABLE `poll_detail_file` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `poll_file`
 --
 
+DROP TABLE IF EXISTS `poll_file`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `poll_file` (
-  `poll_id` int(11) NOT NULL,
+  `poll_id` int NOT NULL AUTO_INCREMENT,
   `created_at` datetime NOT NULL,
   `started_at` datetime DEFAULT NULL,
   `end_at` datetime DEFAULT NULL,
-  `poll_status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `poll_status` int NOT NULL,
+  PRIMARY KEY (`poll_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `poll_file`
 --
 
-INSERT INTO `poll_file` (`poll_id`, `created_at`, `started_at`, `end_at`, `poll_status`) VALUES
-(1, '2019-10-03 10:49:57', '2019-10-03 10:59:02', '2019-10-03 17:05:05', 4);
-
--- --------------------------------------------------------
+LOCK TABLES `poll_file` WRITE;
+/*!40000 ALTER TABLE `poll_file` DISABLE KEYS */;
+INSERT INTO `poll_file` VALUES (1,'2021-07-11 17:23:03','2021-07-11 17:29:46','2021-07-11 20:01:51',4),(2,'2021-07-11 19:08:21','2021-07-11 19:09:43','2021-07-11 20:01:49',4),(3,'2021-07-11 20:13:41','2021-07-11 20:17:13','2021-07-11 20:23:43',4),(4,'2021-07-11 20:29:48','2021-07-11 20:31:12','2021-07-11 21:56:19',4),(5,'2021-07-11 22:38:39','2021-07-11 23:03:36','2021-07-11 23:13:20',4),(6,'2021-07-11 23:13:30',NULL,NULL,3);
+/*!40000 ALTER TABLE `poll_file` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `positions_file`
 --
 
+DROP TABLE IF EXISTS `positions_file`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `positions_file` (
-  `pos_id` int(11) NOT NULL,
-  `pos_name` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `pos_id` int NOT NULL AUTO_INCREMENT,
+  `pos_name` varchar(30) NOT NULL,
+  PRIMARY KEY (`pos_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `positions_file`
 --
 
-INSERT INTO `positions_file` (`pos_id`, `pos_name`) VALUES
-(1, 'President'),
-(2, 'Vice President'),
-(3, 'Secretary'),
-(4, 'Treasurer'),
-(5, 'P.I.O'),
-(6, 'Auditor'),
-(7, 'Sergeant at Arms'),
-(8, 'Department Represetatives');
-
--- --------------------------------------------------------
+LOCK TABLES `positions_file` WRITE;
+/*!40000 ALTER TABLE `positions_file` DISABLE KEYS */;
+INSERT INTO `positions_file` VALUES (1,'President'),(2,'Vice President'),(3,'Secretary'),(4,'Treasurer'),(5,'P.I.O'),(6,'Auditor'),(7,'Sergeant at Arms'),(8,'Department Represetatives');
+/*!40000 ALTER TABLE `positions_file` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `status_file`
 --
 
+DROP TABLE IF EXISTS `status_file`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `status_file` (
-  `status_id` int(11) NOT NULL,
-  `status_name` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `status_id` int NOT NULL AUTO_INCREMENT,
+  `status_name` varchar(50) NOT NULL,
+  PRIMARY KEY (`status_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `status_file`
 --
 
-INSERT INTO `status_file` (`status_id`, `status_name`) VALUES
-(1, 'Active'),
-(2, 'Inactive'),
-(3, 'To be decided (TBD)'),
-(4, 'Voting is now Closed'),
-(5, 'Open for Voting'),
-(6, 'Voted');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `users_account_file`
---
-
-CREATE TABLE `users_account_file` (
-  `voters_id` int(11) NOT NULL,
-  `voters_username` varchar(30) DEFAULT NULL,
-  `voters_password` varchar(50) DEFAULT NULL,
-  `voters_status` int(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `users_account_file`
---
-
-INSERT INTO `users_account_file` (`voters_id`, `voters_username`, `voters_password`, `voters_status`) VALUES
-(1, 'administrator', 'YWRtaW5pc3RyYXRvcg==', 1),
-(2, 'shammah', 'c2hhbW1haA==', 1),
-(3, NULL, NULL, 1),
-(4, NULL, NULL, 1),
-(5, NULL, NULL, 1),
-(6, NULL, NULL, 1),
-(7, NULL, NULL, 1),
-(8, NULL, NULL, 1),
-(9, NULL, NULL, 1),
-(10, NULL, NULL, 1),
-(11, NULL, NULL, 1),
-(12, NULL, NULL, 1),
-(13, NULL, NULL, 1),
-(14, NULL, NULL, 1),
-(15, NULL, NULL, 1),
-(16, NULL, NULL, 1),
-(17, NULL, NULL, 1),
-(18, NULL, NULL, 1),
-(19, NULL, NULL, 1),
-(20, NULL, NULL, 1),
-(21, NULL, NULL, 1),
-(22, NULL, NULL, 1),
-(23, NULL, NULL, 1),
-(24, NULL, NULL, 1),
-(25, NULL, NULL, 1),
-(26, NULL, NULL, 1),
-(27, NULL, NULL, 1),
-(28, NULL, NULL, 1),
-(29, NULL, NULL, 1),
-(30, NULL, NULL, 1),
-(31, NULL, NULL, 1),
-(32, NULL, NULL, 1),
-(33, NULL, NULL, 1),
-(34, NULL, NULL, 1),
-(35, NULL, NULL, 1),
-(36, NULL, NULL, 1),
-(37, NULL, NULL, 1),
-(38, NULL, NULL, 1),
-(39, NULL, NULL, 1),
-(40, NULL, NULL, 1),
-(41, NULL, NULL, 1),
-(42, NULL, NULL, 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `users_profile`
---
-
-CREATE TABLE `users_profile` (
-  `voters_id` int(5) NOT NULL,
-  `pos_id` int(11) DEFAULT NULL,
-  `type_id` int(11) NOT NULL,
-  `user_fullname` varchar(50) NOT NULL,
-  `user_age` int(11) DEFAULT NULL,
-  `user_address` varchar(150) DEFAULT NULL,
-  `user_motto` varchar(150) DEFAULT NULL,
-  `user_achievements` varchar(500) DEFAULT NULL,
-  `user_image` varchar(500) DEFAULT NULL,
-  `user_status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `users_profile`
---
-
-INSERT INTO `users_profile` (`voters_id`, `pos_id`, `type_id`, `user_fullname`, `user_age`, `user_address`, `user_motto`, `user_achievements`, `user_image`, `user_status`) VALUES
-(1, NULL, 1, 'Fritz Gerald Dumdum', NULL, NULL, NULL, NULL, NULL, 1),
-(2, NULL, 2, 'Shammah Casumpang', NULL, NULL, NULL, NULL, NULL, 1),
-(3, 1, 3, 'Abby', 1, 'Bangkas A', 'Sayings', 'Achievements 2', NULL, 1),
-(4, 1, 3, 'Begail', 1, 'Bangkas B', 'Bad', 'Butcher', NULL, 1),
-(5, 1, 3, 'C', 2, 'C', 'C', 'C', NULL, 1),
-(6, 1, 3, 'D', 1, 'D', 'D', 'D', NULL, 1),
-(7, 1, 3, 'E', 1, 'E', 'E', 'E', NULL, 1),
-(8, 2, 3, 'A', 1, 'A', 'A', 'A', NULL, 1),
-(9, 2, 3, 'B', 1, 'B', 'B', 'B', NULL, 1),
-(10, 2, 3, 'C', 1, 'C', 'C', 'C', NULL, 1),
-(11, 2, 3, 'Dianne', 1, 'Davao', 'D', 'D', NULL, 1),
-(12, 2, 3, 'E', 1, 'E', 'E', 'E', NULL, 1),
-(13, 3, 3, 'A', 1, 'A', 'A', 'A', NULL, 1),
-(14, 3, 3, 'B', 1, 'B', 'B', 'B', NULL, 1),
-(15, 3, 3, 'C', 1, 'C', 'C', 'C', NULL, 1),
-(16, 3, 3, 'D', 1, 'D', 'D', 'D', NULL, 1),
-(17, 3, 3, 'E', 1, 'E', 'E', 'E', NULL, 1),
-(18, 4, 3, 'A', 1, 'A', 'A', 'A', NULL, 1),
-(19, 4, 3, 'B', 1, 'B', 'B', 'B', NULL, 1),
-(20, 4, 3, 'C', 1, 'C', 'C', 'C', NULL, 1),
-(21, 4, 3, 'D', 1, 'D', 'D', 'D', NULL, 1),
-(22, 4, 3, 'E', 1, 'E', 'E', 'E', NULL, 1),
-(23, 5, 3, 'A', 1, 'A', 'A', 'A', NULL, 1),
-(24, 5, 3, 'B', 1, 'B', 'B', 'B', NULL, 1),
-(25, 5, 3, 'C', 1, 'C', 'C', 'C', NULL, 1),
-(26, 5, 3, 'D', 1, 'D', 'D', 'D', NULL, 1),
-(27, 5, 3, 'E', 1, 'E', 'E', 'E', NULL, 1),
-(28, 6, 3, 'A', 1, 'A', 'A', 'A', NULL, 1),
-(29, 6, 3, 'AB', 1, 'B', 'B', 'B', NULL, 1),
-(30, 6, 3, 'C', 1, 'C', 'C', 'C', NULL, 1),
-(31, 6, 3, 'D', 1, 'D', 'D', 'D', NULL, 1),
-(32, 6, 3, 'E', 1, 'E', 'E', 'E', NULL, 1),
-(33, 7, 3, 'A', 1, 'A', 'A', 'A', NULL, 1),
-(34, 7, 3, 'B', 1, 'B', 'B', 'B', NULL, 1),
-(35, 7, 3, 'C', 1, 'C', 'C', 'C', NULL, 1),
-(36, 7, 3, 'D', 1, 'D', 'D', 'D', NULL, 1),
-(37, 7, 3, 'E', 1, 'E', 'E', 'E', NULL, 1),
-(38, 8, 3, 'A', 1, 'A', 'A', 'A', NULL, 1),
-(39, 8, 3, 'B', 1, 'B', 'B', 'B', NULL, 1),
-(40, 8, 3, 'C', 1, 'C', 'C', 'C', NULL, 1),
-(41, 8, 3, 'D', 1, 'D', 'D', 'D', NULL, 1),
-(42, 8, 3, 'Elijah', 1, 'Everland', 'E', 'E', NULL, 1);
-
--- --------------------------------------------------------
+LOCK TABLES `status_file` WRITE;
+/*!40000 ALTER TABLE `status_file` DISABLE KEYS */;
+INSERT INTO `status_file` VALUES (1,'Active'),(2,'Inactive'),(3,'To be decided (TBD)'),(4,'Voting has been Closed'),(5,'Open for Voting'),(6,'Voted');
+/*!40000 ALTER TABLE `status_file` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `user_type_file`
 --
 
+DROP TABLE IF EXISTS `user_type_file`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user_type_file` (
-  `type_id` int(11) NOT NULL,
-  `type_name` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `type_id` int NOT NULL AUTO_INCREMENT,
+  `type_name` varchar(20) NOT NULL,
+  PRIMARY KEY (`type_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `user_type_file`
 --
 
-INSERT INTO `user_type_file` (`type_id`, `type_name`) VALUES
-(1, 'Administrator'),
-(2, 'Voter'),
-(3, 'Candidate');
+LOCK TABLES `user_type_file` WRITE;
+/*!40000 ALTER TABLE `user_type_file` DISABLE KEYS */;
+INSERT INTO `user_type_file` VALUES (1,'Administrator'),(2,'Voter'),(3,'Candidate');
+/*!40000 ALTER TABLE `user_type_file` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Indexes for dumped tables
+-- Table structure for table `users_account_file`
 --
 
---
--- Indexes for table `poll_detail_file`
---
-ALTER TABLE `poll_detail_file`
-  ADD PRIMARY KEY (`poll_id`);
+DROP TABLE IF EXISTS `users_account_file`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `users_account_file` (
+  `voters_id` int NOT NULL AUTO_INCREMENT,
+  `voters_username` varchar(30) DEFAULT NULL,
+  `voters_password` varchar(50) DEFAULT NULL,
+  `voters_status` int NOT NULL,
+  PRIMARY KEY (`voters_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Indexes for table `poll_file`
---
-ALTER TABLE `poll_file`
-  ADD PRIMARY KEY (`poll_id`);
-
---
--- Indexes for table `positions_file`
---
-ALTER TABLE `positions_file`
-  ADD PRIMARY KEY (`pos_id`);
-
---
--- Indexes for table `status_file`
---
-ALTER TABLE `status_file`
-  ADD PRIMARY KEY (`status_id`);
-
---
--- Indexes for table `users_account_file`
---
-ALTER TABLE `users_account_file`
-  ADD PRIMARY KEY (`voters_id`);
-
---
--- Indexes for table `users_profile`
---
-ALTER TABLE `users_profile`
-  ADD PRIMARY KEY (`voters_id`);
-
---
--- Indexes for table `user_type_file`
---
-ALTER TABLE `user_type_file`
-  ADD PRIMARY KEY (`type_id`);
-
---
--- AUTO_INCREMENT for dumped tables
+-- Dumping data for table `users_account_file`
 --
 
---
--- AUTO_INCREMENT for table `poll_detail_file`
---
-ALTER TABLE `poll_detail_file`
-  MODIFY `poll_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+LOCK TABLES `users_account_file` WRITE;
+/*!40000 ALTER TABLE `users_account_file` DISABLE KEYS */;
+INSERT INTO `users_account_file` VALUES (1,'admin','YWRtaW4=',1),(2,NULL,NULL,1),(3,NULL,NULL,1),(4,'relisa','cmVsaXNh',1),(5,NULL,NULL,1),(6,NULL,NULL,1),(7,NULL,NULL,1),(8,NULL,NULL,1),(9,NULL,NULL,1),(10,NULL,NULL,1),(11,NULL,NULL,1),(12,NULL,NULL,1),(13,NULL,NULL,1),(14,NULL,NULL,1),(15,NULL,NULL,1),(16,NULL,NULL,1),(17,NULL,NULL,1),(18,NULL,NULL,1),(19,NULL,NULL,1),(20,NULL,NULL,1);
+/*!40000 ALTER TABLE `users_account_file` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- AUTO_INCREMENT for table `poll_file`
+-- Table structure for table `users_profile`
 --
-ALTER TABLE `poll_file`
-  MODIFY `poll_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+DROP TABLE IF EXISTS `users_profile`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `users_profile` (
+  `voters_id` int NOT NULL AUTO_INCREMENT,
+  `pos_id` int DEFAULT NULL,
+  `type_id` int NOT NULL,
+  `user_fullname` varchar(50) NOT NULL,
+  `user_age` int DEFAULT NULL,
+  `user_address` varchar(150) DEFAULT NULL,
+  `user_motto` varchar(150) DEFAULT NULL,
+  `user_achievements` varchar(500) DEFAULT NULL,
+  `user_image` varchar(500) DEFAULT NULL,
+  `user_status` int NOT NULL,
+  PRIMARY KEY (`voters_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- AUTO_INCREMENT for table `positions_file`
+-- Dumping data for table `users_profile`
 --
-ALTER TABLE `positions_file`
-  MODIFY `pos_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+LOCK TABLES `users_profile` WRITE;
+/*!40000 ALTER TABLE `users_profile` DISABLE KEYS */;
+INSERT INTO `users_profile` VALUES (1,NULL,1,'Admin',NULL,NULL,NULL,NULL,NULL,1),(2,1,3,'Fritz Gerald',22,'835-4 Gavino Leyson CPD., Nasipit, Talamban, Cebu City','Fuck you','Fuck you',NULL,1),(3,1,3,'Shammah Casumpang',22,'Nasipit, Talamban, Cebu City','Fuck you','Fuck you',NULL,1),(4,NULL,2,'relisa',NULL,NULL,NULL,NULL,NULL,1),(5,1,3,'Fritz Gerald',20,'835-4 Gavino Leyson CPD., Nasipit, Talamban, Cebu City','Fuck you','Fuck you',NULL,1),(6,1,3,'Fritz Gerald 2',20,'835-4 Gavino Leyson CPD., Nasipit, Talamban, Cebu City','Fuck you','Fuck you',NULL,1),(7,1,3,'Fritz Gerald 3',20,'835-4 Gavino Leyson CPD., Nasipit, Talamban, Cebu City','Fuck you','Fuck you',NULL,1),(8,1,3,'Fritz Gerald 4',20,'835-4 Gavino Leyson CPD., Nasipit, Talamban, Cebu City','Fuck you','Fuck you',NULL,1),(9,2,3,'Shammah',20,'835-4 Gavino Leyson CPD., Nasipit, Talamban, Cebu City','Fuck you','Fuck you',NULL,1),(10,2,3,'Shammah 2',20,'835-4 Gavino Leyson CPD., Nasipit, Talamban, Cebu City','Fuck you','Fuck you',NULL,1),(11,2,3,'Shammah 3',20,'835-4 Gavino Leyson CPD., Nasipit, Talamban, Cebu City','Fuck you','Fuck you',NULL,1),(12,2,3,'Shammah 4',20,'835-4 Gavino Leyson CPD., Nasipit, Talamban, Cebu City','Fuck you','Fuck you',NULL,1),(13,1,3,'David',20,'Nasipit, Talamban, Cebu City','Vote me because vote lang','Vote me because vote lang',NULL,1),(14,1,3,'Fritz',20,'Nasipit, Talamban, Cebu City','Vote me because vote lang','Vote me because vote lang',NULL,1),(15,1,3,'Relisa',20,'Nasipit, Talamban, Cebu City','Vote me because vote lang','Vote me because vote lang',NULL,1),(16,1,3,'Joyce',20,'Nasipit, Talamban, Cebu City','Vote me because vote lang','Vote me because vote lang',NULL,1),(17,2,3,'Shamma',20,'Nasipit, Talamban, Cebu City','Vote me because vote lang','Vote me because vote lang',NULL,1),(18,2,3,'His Friend',20,'Nasipit, Talamban, Cebu City','Vote me because vote lang','Vote me because vote lang',NULL,1),(19,2,3,'Axie Community',20,'Nasipit, Talamban, Cebu City','Vote me because vote lang','Vote me because vote lang',NULL,1),(20,1,3,'Test',12,'Test','Test','Test',NULL,1);
+/*!40000 ALTER TABLE `users_profile` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- AUTO_INCREMENT for table `status_file`
+-- Table structure for table `votes_file`
 --
-ALTER TABLE `status_file`
-  MODIFY `status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+DROP TABLE IF EXISTS `votes_file`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `votes_file` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `pos_id` int DEFAULT NULL,
+  `voters_id` int DEFAULT NULL,
+  `poll_no` int DEFAULT NULL,
+  `rep_id` int DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- AUTO_INCREMENT for table `users_account_file`
+-- Dumping data for table `votes_file`
 --
-ALTER TABLE `users_account_file`
-  MODIFY `voters_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
---
--- AUTO_INCREMENT for table `users_profile`
---
-ALTER TABLE `users_profile`
-  MODIFY `voters_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+LOCK TABLES `votes_file` WRITE;
+/*!40000 ALTER TABLE `votes_file` DISABLE KEYS */;
+INSERT INTO `votes_file` VALUES (1,1,4,1,3,'2021-07-11 18:33:07','2021-07-11 18:33:07'),(2,1,4,2,8,'2021-07-11 19:16:06','2021-07-11 19:16:06'),(6,1,4,4,15,'2021-07-11 20:58:52','2021-07-11 20:58:52'),(7,2,4,4,19,'2021-07-11 21:10:02','2021-07-11 21:10:02');
+/*!40000 ALTER TABLE `votes_file` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
---
--- AUTO_INCREMENT for table `user_type_file`
---
-ALTER TABLE `user_type_file`
-  MODIFY `type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-COMMIT;
-
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2021-07-11 23:35:41

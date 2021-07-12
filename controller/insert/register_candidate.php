@@ -10,12 +10,10 @@
     $query2 = new Select($db);
 
     $obj = json_decode(json_encode($_POST['data']), true);
-
-
     
-    $select = $query2->countUsers();
+    $select = $query2->getLastId();
     while($row = $select->fetch(PDO::FETCH_ASSOC)){
-        $total_users = $row['user_id'];
+        $total_users = $row['voters_id'];
     }
     
     $query->user_type = $obj['type'];
@@ -30,7 +28,7 @@
     $query->voters_password = NULL;
 
     $query->poll_no = $obj['poll_no'];
-    $query->user_id = $total_users + 1;
+    $query->user_id = (intval($total_users) + 1);
     $query->pos_id = $obj['type'];
 
 

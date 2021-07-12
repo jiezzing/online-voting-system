@@ -34,15 +34,21 @@
                 <ul class="vertical-nav-menu">
                     <li class="app-sidebar__heading">Dashboards</li>
                     <li>
-                        <a href="../../admin/pages/poll.php" class="mm-active">
+                        <a href="../../admin/pages/poll.php" class="<?php echo $page == "Poll" ? 'mm-active' : ''; ?>">
                             <i class="metismenu-icon pe-7s-home "></i>
                             Poll
                         </a>
                     </li>
                     <li>
-                        <a href="../../admin/pages/users.php">
-                            <i class="metismenu-icon pe-7s-users"></i>
+                        <a href="../../admin/pages/users.php" class="<?php echo $page == "Users" ? 'mm-active' : ''; ?>">
+                            <i class="metismenu-icon pe-7s-users "></i>
                             Users
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../admin/pages/positions.php" class="<?php echo $page == "Positions" ? 'mm-active' : ''; ?>">
+                            <i class="metismenu-icon pe-7s-id "></i>
+                            Positions
                         </a>
                     </li>
                 </ul>
