@@ -9,7 +9,9 @@
     $obj = json_decode(json_encode($_POST['data']), true);
 
     $query->voters_id = $obj['voters_id'];
-    $update = $query->updateUserDetails($obj['name'], $obj['pos_id'], $obj['age'], $obj['address'], $obj['motto'], $obj['achievements']);
+    $department = $obj['user_department'] != "" ? $obj['user_department'] : NULL;
+
+    $update = $query->updateUserDetails($obj['name'], $obj['age'], $obj['address'], $obj['motto'], $obj['achievements'], $department);
 
     if($update)
         echo 'success'; 

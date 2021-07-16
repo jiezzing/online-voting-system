@@ -22,7 +22,7 @@
     $query->user_address = $obj['address'];
     $query->user_motto = $obj['motto'];
     $query->user_achievements = $obj['achievements'];
-    $query->user_image = NULL;
+    $query->user_department = $obj['user_department'] != "" && isset($obj['user_department']) ? $obj['user_department'] : NULL;
 
     $query->voters_username = NULL;
     $query->voters_password = NULL;

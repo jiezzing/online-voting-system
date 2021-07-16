@@ -12,21 +12,29 @@
                     </thead>
                     <tbody>
                         <?php
+                            $result = $select->hasOpenVotes()->fetch(PDO::FETCH_ASSOC);
+                            $disabled = $result['active_poll'] == 1 ? 'disabled' : '';
+
+                            if ($disabled == 'disabled') {
+                                echo 
+                                "<div class='alert alert-danger' role='alert'>
+                                    Can't publish any positions as of the moment since there's' an active poll.
+                                </div>";
+                            }
                             $query = $select->getPositions();
                             while($row = $query->fetch(PDO::FETCH_ASSOC)){
-                                $checked = $row['status_id'] == 2 ? 'checked' : '';
+                                $checked = $row['status_id'] == 1 ? 'checked' : '';
                                 echo'
                                     <tr>
                                         <td>'.$row['pos_name'].'</td>
                                         <td style="width: 100px; text-align: center">
                                             <label class="switch">
-                                                <input '.$checked.' type="checkbox" class="publish-position" position_id="'.$row['pos_id'].'">
+                                                <input  '.$disabled.' '.$checked.' type="checkbox" class="publish-position" position_id="'.$row['pos_id'].'">
                                                 <span class="slider round"></span>
                                             </label>
                                         </td>
                                         <td style="text-align: center">
                                             <button class="mb-2 mr-2 btn btn-primary edit-position" data-toggle="modal" data-target="#edit-position-modal" value="'.$row['pos_id'].'"><i class="fa fa-edit"></i> Update</button>
-                                            <button class="mb-2 mr-2 btn btn-danger" value="'.$row['pos_id'].'"><i class="fa fa-trash"></i> Delete</button>
                                         </td>
                                     </tr>
                                 ';

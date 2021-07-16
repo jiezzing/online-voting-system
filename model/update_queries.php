@@ -86,13 +86,10 @@
         }
 
 		// Update rcp file
-		public function vote($pos){
-			$query = "UPDATE poll_detail_file SET total_votes=(total_votes + 1) WHERE poll_no=? AND user_id=? AND pos_id='".$pos."'";
+		public function vote($poll_no, $pos_id, $user_id){
+			$query = "UPDATE poll_detail_file SET total_votes=(total_votes + 1) WHERE poll_no='".$poll_no."' AND user_id='".$user_id."' AND pos_id='".$pos_id."'";
 			$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 			$sel = $this->conn->prepare($query);
-
-			$sel->bindParam(1, $this->poll_no);
-			$sel->bindParam(2, $this->user_id);
 
 			if($sel->execute())
 			{
@@ -105,8 +102,8 @@
 			return $sel;
 		}
 
-		public function updateUserDetails($name, $pos, $age, $address, $motto, $achievements){
-			$query = "UPDATE users_profile SET pos_id='".$pos."', user_fullname='".$name."', user_age='".$age."', user_address='".$address."', user_motto='".$motto."', user_achievements='".$achievements."', user_image=NULL WHERE voters_id=?";
+		public function updateUserDetails($name, $age, $address, $motto, $achievements, $department){
+			$query = "UPDATE users_profile SET user_fullname='".$name."', user_age='".$age."', user_address='".$address."', user_motto='".$motto."', user_achievements='".$achievements."', user_department='".$department."' WHERE voters_id=?";
 			$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 			$sel = $this->conn->prepare($query);
 
@@ -142,7 +139,7 @@
         }
 
 		public function publishPosition($status){
-			$query = "UPDATE positions_file SET status_id='".$status."' WHERE pos_id=?";
+			$query = "UPDATE positions_file SET status_id=".$status." WHERE pos_id=?";
 			$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 			$sel = $this->conn->prepare($query);
 

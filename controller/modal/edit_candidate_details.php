@@ -17,15 +17,16 @@
         $address = $row['user_address'];
         $motto = $row['user_motto'];
         $achieve = $row['user_achievements'];
+        $pos_name = $row['pos_name'];
+        $department = $row['user_department'] != "" ? $row['user_department'] : '';
     }
 
     echo'
         <form id="edit-form">
             <div class="form-row text-center">
                 <div class="col-md-12">
-                    <div class="position-relative form-group">
-                        <img width="120" class="rounded-circle" src="../../assets/images/avatars/1.jpg" alt=""><br><br>
-                        <input name="image" id="imageloader" type="file" class="" accept="image/*" data-type="image">
+                    <div class="position-relative form-group pt-4 pb-4">
+                    <i class="fa fa-user fa-4x"></i>
                     </div>
                 </div>
             </div>
@@ -39,18 +40,7 @@
                 <div class="col-md-5">
                     <div class="position-relative form-group">
                         <label for="exampleEmail11" class="">Position</label>
-                        <select class="mb-2 form-control" name="position">
-                        ';
-                            $pos = $query->getPositions();
-                            while($row = $pos->fetch(PDO::FETCH_ASSOC)){
-                                if($row['pos_id'] == $pos_id){
-                                    echo ' <option value="'.$row['pos_id'].'" selected>'.$row['pos_name'].'</option> ';
-                                }else{
-                                    echo ' <option value="'.$row['pos_id'].'">'.$row['pos_name'].'</option> ';
-                                }
-                            }
-                        echo'
-                        </select>
+                        <input disabled value="'.$pos_name.'" type="text" class="form-control">
                     </div>
                 </div>
                 <div class="col-md-2">
@@ -78,13 +68,18 @@
                         <textarea name="achievements" id="exampleCity" type="text" class="form-control">'.$achieve.'</textarea>
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <div class="position-relative form-group">
-                        <label for="exampleCity" class="">Picture / Image</label>
-                    </div>
-                </div>
+                ';
+
+                if ($pos_name == "Department Representatives" || $pos_name == "Department Representative") {
+                    echo'<div class="col-md-12">
+                        <div class="position-relative form-group">
+                            <label for="exampleCity" class="">Department</label>
+                            <input name="motto" value="'.$department.'" id="_edit-department-name" type="text" class="form-control">
+                        </div>
+                    </div>';
+                }
+                echo '
             </div>
         </form>
     ';
 ?>
-

@@ -10,13 +10,8 @@
     $query->pos_id = $_POST['id'];
 
     if ($_POST['is_checked'] == 'true') {
-        $update = $query->publishPosition(1);
+        $query->publishPosition(1);
     } else {
-        $update = $query->publishPosition(2);
+        $query->publishPosition(2);
     }
-
-    if($update)
-        echo 'success'; 
-    else   
-        echo 'failed';
 ?> 

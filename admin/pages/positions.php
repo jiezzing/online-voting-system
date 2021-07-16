@@ -35,6 +35,29 @@
             </div>
         </div>
     </div>
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="add-position-modal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title">Add Position</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <div class="position-relative form-group"><label for="exampleEmail11" class="">Position</label><input id="add-position-field" placeholder="Position" type="text" class="form-control"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="add-position" data-dismiss="modal">Add Position</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <?php 
         include '../../admin/components/navbar.php';  
         include '../../admin/components/sidebar.php'; 
@@ -116,10 +139,32 @@
             url: "../../controller/update/publish_position.php",
             data: { 
                 id: id,
-                is_checked: isChecked
+                is_checked: is_checked
+            },
+            error: function(xhr, ajaxOptions, thrownError){
+                alert(thrownError);
+            }
+        });
+    });
+
+    $('#add-position').click(() => {
+        let position = $('#add-position-field').val().trim();
+
+        if (position == "") {
+            return toastr.error('Position must not be empty.', 'Success', 'success');
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "../../controller/insert/add_position.php",
+            data: { 
+                position: position
             },
             success: function(response){
-                console.log(response)
+                if(response == "success")
+                    toastr.success("New position has been added. Please reload the page.", "Success", "success");
+                else
+                    toastr.error("Something went wrong. Please try again.", "Error", "error");
             },
             error: function(xhr, ajaxOptions, thrownError){
                 alert(thrownError);

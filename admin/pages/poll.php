@@ -17,7 +17,7 @@
 
 <body>
 <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header"> 
-    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="registration-form-modal">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -27,41 +27,44 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                <form id="registration-form">
-                    <div class="form-row">
-                        <div class="col-md-5">
-                            <div class="position-relative form-group"><label for="exampleEmail11" class="">Full Name</label><input name="fullname" id="exampleEmail11" placeholder="Full Name" type="text" class="form-control"></div>
+                    <form id="registration-form">
+                        <div class="form-row">
+                            <div class="col-md-5">
+                                <div class="position-relative form-group"><label for="exampleEmail11" class="">Full Name</label><input name="fullname" id="exampleEmail11" placeholder="Full Name" type="text" class="form-control"></div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="position-relative form-group">
+                                <label for="exampleEmail11" class="">Position</label>
+                                <select class="mb-2 form-control" name="position" id="_position">
+                                    <?php
+                                        $query3 = $select->getPositionByStatus(1);
+                                        while($row3 = $query3->fetch(PDO::FETCH_ASSOC)){
+                                            extract($row3);
+                                                echo ' <option value="'.$row3['pos_id'].'">'.$row3['pos_name'].'</option> ';
+                                        }
+                                    ?>
+                                </select>
+                            </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="position-relative form-group"><label for="examplePassword11" class="">Age</label><input name="age" id="examplePassword11" placeholder="Age" type="number"
+                                                                                                                                            class="form-control"></div>
+                            </div>
                         </div>
-                        <div class="col-md-5">
-                            <div class="position-relative form-group">
-                            <label for="exampleEmail11" class="">Position</label>
-                            <select class="mb-2 form-control" name="position">
-                                <?php
-                                    $query3 = $select->getPositions();
-                                    while($row3 = $query3->fetch(PDO::FETCH_ASSOC)){
-                                        extract($row3);
-                                            echo ' <option value="'.$row3['pos_id'].'">'.$row3['pos_name'].'</option> ';
-                                    }
-                                ?>
-                            </select>
+                        <div class="position-relative form-group"><label for="exampleAddress" class="">Address</label><input name="address" id="exampleAddress" placeholder="Address" type="text" class="form-control"></div>
+                        
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <div class="position-relative form-group"><label for="exampleCity" class="">Sayings / Motto</label><input name="motto" id="exampleCity" type="text" class="form-control"></div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="position-relative form-group"><label for="exampleCity" class="">Achievements</label><textarea name="achievements" id="exampleCity" type="text" class="form-control"></textarea></div>
+                            </div>
+                            <div class="col-md-12" hidden id="department">
+                                <div class="position-relative form-group"><label for="exampleCity" class="">Department</label><input name="motto" id="department_name" type="text" class="form-control"></div>
+                            </div>
                         </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="position-relative form-group"><label for="examplePassword11" class="">Age</label><input name="age" id="examplePassword11" placeholder="Age" type="number"
-                                                                                                                                        class="form-control"></div>
-                        </div>
-                    </div>
-                    <div class="position-relative form-group"><label for="exampleAddress" class="">Address</label><input name="address" id="exampleAddress" placeholder="Address" type="text" class="form-control"></div>
-                    
-                    <div class="form-row">
-                        <div class="col-md-12">
-                            <div class="position-relative form-group"><label for="exampleCity" class="">Sayings / Motto</label><input name="motto" id="exampleCity" type="text" class="form-control"></div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="position-relative form-group"><label for="exampleCity" class="">Achievements</label><textarea name="achievements" id="exampleCity" type="text" class="form-control"></textarea></div>
-                        </div>
-                    </div>
-                </form>
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -71,11 +74,11 @@
         </div>
     </div>
 
-    <div class="modal fade bd-example-modal-xl" id="statistics" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal fade bd-example-modal-xl" id="real-time-leaderboard" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modal-title">Results for POLL # 00001</h5>
+                    <h5 class="modal-title" id="modal-title">Real Time Leaderboard</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -84,68 +87,15 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="main-card mb-0 card">
-                            <div class="card-body">
-                                <ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
-                                    <li class="nav-item">
-                                        <a role="tab" class="nav-link active" id="tab-0" data-toggle="tab" href="#tab-content-0">
-                                            <span>President</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a role="tab" class="nav-link" id="tab-1" data-toggle="tab" href="#tab-content-1">
-                                            <span>Vice President</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a role="tab" class="nav-link" id="tab-2" data-toggle="tab" href="#tab-content-2">
-                                            <span>Secretary</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a role="tab" class="nav-link" id="tab-3" data-toggle="tab" href="#tab-content-3">
-                                            <span>Treasurer</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a role="tab" class="nav-link" id="tab-4" data-toggle="tab" href="#tab-content-4">
-                                            <span>P.I.O</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a role="tab" class="nav-link" id="tab-5" data-toggle="tab" href="#tab-content-5">
-                                            <span>Auditor</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a role="tab" class="nav-link" id="tab-6" data-toggle="tab" href="#tab-content-6">
-                                            <span>Sergeant @ Arms</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a role="tab" class="nav-link" id="tab-7" data-toggle="tab" href="#tab-content-7">
-                                            <span>Department Reps.</span>
-                                        </a>
-                                    </li>
-                                </ul>
-
-                                <div class="tab-content">
-                                    <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <canvas id="canvas"></canvas>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="card-body" id="real-time-leaderboard-body">
                             </div>
                         </div>
                     </div>
-                                </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
 
     <div class="modal fade bd-example-modal-md" id="candidate-info" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-md">
@@ -170,7 +120,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modal-title"></h5>
+                    <h5 class="modal-title" id="modal-title">Edit Candidate Details</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -250,6 +200,8 @@
         let address = $('#registration-form').find('input[name="address"]').val();
         let motto = $('#registration-form').find('input[name="motto"]').val();
         let achievements = $('#registration-form').find('textarea[name="achievements"]').val();
+        let department = $('#department_name').val().trim();
+        let selected = $('#_position :selected').text();
         let data = {
             'poll_no': parseFloat(poll_no),
             'type': position,
@@ -257,10 +209,11 @@
             'age': age,
             'address': address,
             'motto': motto,
-            'achievements': achievements
+            'achievements': achievements,
+            'user_department': department
         };
 
-        if (fullname.trim() === "" || age.trim() === "" || address.trim() === "" || motto.trim() === "" || achievements.trim() === "") {
+        if (fullname.trim() === "" || age.trim() === "" || address.trim() === "" || motto.trim() === "" || achievements.trim() === "" || (department === "" && selected === "Department Representatives" || selected === "Department Representative")) {
             return toastr.error("Some fields are missing.", "Error", "error");
         }
 
@@ -272,11 +225,12 @@
             },
             success: function(response){
                 $('#registration-form').find('input[name="fullname"]').val('');
-                $('#registration-form').find('select[name="position"]').val(1);
+                $('#_position').val($('#_position option:first').val());
                 $('#registration-form').find('input[name="age"]').val('');
                 $('#registration-form').find('input[name="address"]').val('')
                 $('#registration-form').find('input[name="motto"]').val('');
                 $('#registration-form').find('textarea[name="achievements"]').val('');
+                $('#department_name').val('');
                 return toastr.success("New representative has been successfully registered.", "Success", "success");
             },
             error: function(xhr, ajaxOptions, thrownError){
@@ -414,21 +368,25 @@
 
     $('#update-btn').click(function(){
         let fullname = $('#edit-form').find('input[name="fullname"]').val();
-        let position = $('#edit-form').find('select[name="position"]').val();
         let age = $('#edit-form').find('input[name="age"]').val();
         let address = $('#edit-form').find('input[name="address"]').val();
         let motto = $('#edit-form').find('input[name="motto"]').val();
         let achievements = $('#edit-form').find('textarea[name="achievements"]').val();
-        let image = $('#edit-form').find('input[name="image"]').val();
+        let department = $('#_edit-department-name').val().trim();
+
         let data = {
             'voters_id': upd_id,
             'name': fullname,
-            'pos_id': position,
             'age': age,
             'address': address,
             'motto': motto,
-            'achievements': achievements
+            'achievements': achievements,
+            'user_department': department
         };
+
+        if (fullname.trim() === "" || age.trim() === "" || address.trim() === "" || motto.trim() === "" || achievements.trim() === "" || department === "") {
+            return toastr.error("Some fields are missing.", "Error", "error");
+        }
 
         $.ajax({
             type: "POST",
@@ -437,7 +395,10 @@
                 data: data 
             },
             success: function(response){
-                alert(response);
+                if(response == "success")
+                    toastr.success("Candidate has been successfully updated. Please reload the page.", "Success", "success");
+                else
+                    toastr.error("Something went wrong. Please try again.", "Error", "error");
             },
             error: function(xhr, ajaxOptions, thrownError){
                 alert(thrownError);
@@ -522,6 +483,69 @@
             }
         });
     });
+
+    let forRealTimeId = 0;
+    let selectedTab = 1;
+    let status = 0;
+
+    $(document).on('click', '.real-time-leaderboard', function(e){
+        e.preventDefault();
+        let id = $(this).val();
+        forRealTimeId= id;
+        status = $(this).attr('status');
+        $.ajax({
+            type: "POST",
+            url: "../../controller/modal/real_time_leaderboard.php",
+            data: { 
+                id: id,
+                selected_tab: selectedTab
+            },
+            success: function(html){
+                $('#real-time-leaderboard-body').html(html);
+            },
+            error: function(xhr, ajaxOptions, thrownError){
+                alert(thrownError);
+            }
+        });
+    });
+
+    $(document).on('click', '._selected', function(e){
+        e.preventDefault();
+        selectedTab = $(this).attr('pos_id');
+    });
+
+    $(document).on('show.bs.modal', '#real-time-leaderboard', function () {
+        setInterval(function(){ 
+            let isShown = $('#real-time-leaderboard').is(':visible');
+
+            if (isShown && status != 4) {
+                $.ajax({
+                    type: "POST",
+                    url: "../../controller/modal/real_time_leaderboard.php",
+                    data: { 
+                        id: forRealTimeId,
+                        selected_tab: selectedTab
+                    },
+                    success: function(html){
+                        $('#real-time-leaderboard-body').html(html);
+                    },
+                    error: function(xhr, ajaxOptions, thrownError){
+                        alert(thrownError);
+                    }
+                });
+            }
+        }, 10000);
+    });
+
+    $('#_position').change(() => {
+        let selected = $('#_position :selected').text();
+
+        if (selected == 'Department Representatives' || selected == 'Department Representative') {
+            $('#department').removeAttr('hidden');
+        } else {
+            $('#department').attr('hidden', true);
+        }
+    })
 </script>
 
 </body>

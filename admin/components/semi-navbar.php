@@ -1,6 +1,7 @@
 <div class="app-main__outer">
     <div class="app-main__inner">
         <?php
+            $result = $select->hasOpenVotes()->fetch(PDO::FETCH_ASSOC);
             if($page == "Poll"){
                 echo '
                     <div class="app-page-title">
@@ -16,7 +17,6 @@
                                 </div>
                             </div>
                 ';
-                $result = $select->hasOpenVotes()->fetch(PDO::FETCH_ASSOC);
                 if ($result['active_poll'] == 0) {
                     echo ' <div class="page-title-actions">
                             <button type="button" data-toggle="tooltip" title="Create Poll" data-placement="bottom" class="btn-shadow mr-3 btn btn-danger" id="create-poll-btn">
@@ -61,6 +61,16 @@
                                     </div>
                                 </div>
                             </div> 
+                            ';
+                            if ($result['active_poll'] == 0) {
+                                echo ' <div class="page-title-actions">
+                                        <button type="button" data-toggle="modal" data-target="#add-position-modal" data-placement="bottom" class="btn-shadow mr-3 btn btn-danger" id="add-position">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>  ';
+                            }
+
+                            echo ' 
                         </div>
                     </div>       
                 ';

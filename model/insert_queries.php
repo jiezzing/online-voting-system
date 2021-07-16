@@ -10,7 +10,7 @@
 		
 		// Admin User Profile Registration - a candidate
 		public function candidateProfileRegistration(){
-			$query = " INSERT INTO users_profile(pos_id, type_id, user_fullname, user_age, user_address, user_motto, user_achievements, user_image, user_status) VALUES (?, 3, ?, ?, ?, ?, ?, ?, 1)";
+			$query = " INSERT INTO users_profile(pos_id, type_id, user_fullname, user_age, user_address, user_motto, user_achievements, user_department, user_status) VALUES (?, 3, ?, ?, ?, ?, ?, ?, 1)";
 			$this->conn->setAttribute( PDO::ATTR_ERRMODE, PDO:: ERRMODE_WARNING);
 			$sel = $this->conn->prepare($query);
 
@@ -20,7 +20,7 @@
 			$sel->bindParam(4, $this->user_address);
 			$sel->bindParam(5, $this->user_motto);
 			$sel->bindParam(6, $this->user_achievements);
-			$sel->bindParam(7, $this->user_image);
+			$sel->bindParam(7, $this->user_department);
 
 			$sel->execute();
 			return $sel;
@@ -28,7 +28,7 @@
 		
 		// Voter Registration - not a candidate
 		public function usersProfileRegistration(){
-			$query = " INSERT INTO users_profile(pos_id, type_id, user_fullname, user_age, user_address, user_motto, user_achievements, user_image, user_status) VALUES (?, 2, ?, NULL, NULL, NULL, NULL, NULL, 1)";
+			$query = " INSERT INTO users_profile(pos_id, type_id, user_fullname, user_age, user_address, user_motto, user_achievements, user_department, user_status) VALUES (?, 2, ?, NULL, NULL, NULL, NULL, NULL, 1)";
 			$this->conn->setAttribute( PDO::ATTR_ERRMODE, PDO:: ERRMODE_WARNING);
 			$sel = $this->conn->prepare($query);
 
@@ -88,6 +88,18 @@
 			$sel->bindParam(4, $this->rep_id);
 			$sel->bindParam(5, $this->created_at);
 			$sel->bindParam(6, $this->updated_at);
+
+			$sel->execute();
+			return $sel;
+		}
+        
+		public function addPosition(){
+			$query = "INSERT INTO positions_file(pos_name, status_id) VALUES (?, ?)";
+			$this->conn->setAttribute( PDO::ATTR_ERRMODE, PDO:: ERRMODE_WARNING);
+			$sel = $this->conn->prepare($query);
+
+			$sel->bindParam(1, $this->pos_name);
+			$sel->bindParam(2, $this->status_id);
 
 			$sel->execute();
 			return $sel;

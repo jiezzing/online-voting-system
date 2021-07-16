@@ -23,10 +23,14 @@
                             <div class="col-md-12">
                                 <div id="accordion-'.$poll.'" class="accordion-wrapper">
                                 ';
+
+                                $hasPos = false;
                                     
                                 $collapse_no = 0;
-                                $query2 = $select->getPositions();
+                                $departmentReps = [];
+                                $query2 = $select->getPositionsInPoll($row['poll_id']);
                                 while($row2 = $query2->fetch(PDO::FETCH_ASSOC)){
+                                    $hasPos = true;
                                     echo'
                                         <div class="card">
                                             <div id="headingOne" class="card-header">
@@ -42,230 +46,49 @@
                                                                 <th colspan="2">Name</th>
                                                                 <th>Address</th>
                                                                 <th>Age</th>
+                                                                <th>Department</th>
                                                                 <th>Votes</th>
                                                                 <th>Actions</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody> 
                                                         '; 
-                                                            for($i = 0; $i < 6; $i++){
-                                                                if($row2['pos_id'] == 1){
-                                                                    $ctr = 0;
-                                                                    $radio_ctr = 0;
-                                                                    $select->poll_id = $row['poll_no'];
-                                                                    $president = $select->getPresident($i);
-                                                                    while($pres = $president->fetch(PDO::FETCH_ASSOC)){
-                                                                        echo'
-                                                                        <tr>
+                                                        $candidates = $select->getRepresentativesInPoll($row['poll_id'], $row2['pos_id']);
+                                                            while($pres = $candidates->fetch(PDO::FETCH_ASSOC)){
+                                                                echo'
+                                                                    <tr>
                                                                         <td style="width: 70px; text-align: center"><i class="fa fa-user fa-2x"></i></td>
-                                                                            <td style="width: 160px">'.$pres['user_fullname'].'</td>
-                                                                            <td>'.$pres['user_address'].'</td>
-                                                                            <td>'.$pres['user_age'].'</td>
-                                                                            <td>'.$pres['total_votes'].'</td>
-                                                                            <td style="text-align: center">
-                                                                                <button class="mb-2 mr-2 btn btn-primary details" data-toggle="modal" data-target="#candidate-info" value="'.$pres['user_id'].'"><i class="fa fa-id-card"></i> More Details</button>
-                                                                                
-                                                                            ';
+                                                                        <td style="width: 160px">'.$pres['user_fullname'].'</td>
+                                                                        <td>'.$pres['user_address'].'</td>
+                                                                        <td>'.$pres['user_age'].'</td>';
 
-                                                                            if ($row['poll_status'] == 3) {
-                                                                                echo '<button class="mb-2 mr-2 btn btn-success edit-details" data-toggle="modal" data-target="#edit-candidate-info" value="'.$pres['user_id'].'"><i class="fa fa-edit"></i> Update</button>';
-                                                                                echo '<button class="mb-2 mr-2 btn btn-danger delete-representative" data-toggle="modal" value="'.$pres['user_id'].'"><i class="fa fa-trash"></i> Delete</button>';
-                                                                            }
+                                                                        if ($pres['user_department'] && $pres['pos_name'] == "Department Representatives" || $pres['pos_name'] == "Department Representative") {
+                                                                            $departmentReps[$pres['user_department']][] = array(
+                                                                                $pres['user_id'],
+                                                                                $pres['user_fullname'],
+                                                                            );
+                                                                            echo '<td>'.$pres['user_department'].'</td>';
+                                                                        } else {
+                                                                            echo '<td>---</td>';
+                                                                        }
 
-                                                                            echo '
-                                                                                
-                                                                            </td>
-                                                                        </tr>
+                                                                        echo '
+                                                                        <td>'.$pres['total_votes'].'</td>
+                                                                        <td style="text-align: center">
+                                                                            <button class="mb-2 mr-2 btn btn-primary details" data-toggle="modal" data-target="#candidate-info" value="'.$pres['user_id'].'"><i class="fa fa-id-card"></i> More Details</button>
+                                                                            
                                                                         ';
-                                                                        $ctr++;
-                                                                    }
-                                                                }
-                                                                else if($row2['pos_id'] == 2){
-                                                                    $vice_pres = $select->getVicePresident($i);
-                                                                    while($vice = $vice_pres->fetch(PDO::FETCH_ASSOC)){
-                                                                        echo'
-                                                                        <tr> 
-                                                                        <td style="width: 70px; text-align: center"><i class="fa fa-user fa-2x"></i></td>
-                                                                            <td>'.$vice['user_fullname'].'</td>
-                                                                            <td>'.$vice['user_address'].'</td>
-                                                                            <td>'.$vice['user_age'].'</td>
-                                                                            <td>'.$vice['total_votes'].'</td>
-                                                                            <td style="text-align: center">
-                                                                                <button class="mb-2 mr-2 btn btn-primary details" data-toggle="modal" data-target="#candidate-info" value="'.$vice['user_id'].'"><i class="fa fa-id-card"></i> See Information</button>
-                                                                                ';
 
-                                                                                if ($row['poll_status'] == 3) {
-                                                                                    echo '<button class="mb-2 mr-2 btn btn-success edit-details" data-toggle="modal" data-target="#edit-candidate-info" value="'.$vice['user_id'].'"><i class="fa fa-edit"></i> Update</button>';
-                                                                                    echo '<button class="mb-2 mr-2 btn btn-danger delete-representative" data-toggle="modal" value="'.$vice['user_id'].'"><i class="fa fa-trash"></i> Delete</button>';
-                                                                                }
+                                                                        if ($row['poll_status'] == 3) {
+                                                                            echo '<button class="mb-2 mr-2 btn btn-success edit-details" data-toggle="modal" data-target="#edit-candidate-info" value="'.$pres['user_id'].'"><i class="fa fa-edit"></i> Update</button>';
+                                                                            echo '<button class="mb-2 mr-2 btn btn-danger delete-representative" data-toggle="modal" value="'.$pres['user_id'].'"><i class="fa fa-trash"></i> Delete</button>';
+                                                                        }
 
-                                                                            echo '
-                                                                            </td>
-                                                                        </tr>
-                                                                        ';
-                                                                        $ctr++;
-                                                                    }
-                                                                }
-                                                                else if($row2['pos_id'] == 3){
-                                                                    $secretary = $select->getSecretary($i);
-                                                                    while($sec = $secretary->fetch(PDO::FETCH_ASSOC)){
-                                                                        echo'
-                                                                        <tr>
-                                                                        <td style="width: 70px; text-align: center"><i class="fa fa-user fa-2x"></i></td>
-                                                                            <td>'.$sec['user_fullname'].'</td>
-                                                                            <td>'.$sec['user_address'].'</td>
-                                                                            <td>'.$sec['user_age'].'</td>
-                                                                            <td>'.$sec['total_votes'].'</td>
-                                                                            <td style="text-align: center">
-                                                                                <button class="mb-2 mr-2 btn btn-primary details" data-toggle="modal" data-target="#candidate-info" value="'.$sec['user_id'].'"><i class="fa fa-id-card"></i> See Information</button>
-                                                                                ';
-
-                                                                                if ($row['poll_status'] == 3) {
-                                                                                echo '<button class="mb-2 mr-2 btn btn-success edit-details" data-toggle="modal" data-target="#edit-candidate-info" value="'.$sec['user_id'].'"><i class="fa fa-edit"></i> Update</button>';
-                                                                                echo '<button class="mb-2 mr-2 btn btn-danger delete-representative" data-toggle="modal" value="'.$sec['user_id'].'"><i class="fa fa-trash"></i> Delete</button>';
-                                                                            }
-
-                                                                            echo '
-                                                                            </td>
-                                                                        </tr>
-                                                                        ';
-                                                                        $ctr++;
-                                                                    }
-                                                                }
-                                                                else if($row2['pos_id'] == 4){
-                                                                    $treasurer = $select->getTreasurer($i);
-                                                                    while($tres = $treasurer->fetch(PDO::FETCH_ASSOC)){
-                                                                        echo'
-                                                                        <tr>
-                                                                        <td style="width: 70px; text-align: center"><i class="fa fa-user fa-2x"></i></td>
-                                                                            <td>'.$tres['user_fullname'].'</td>
-                                                                            <td>'.$tres['user_address'].'</td>
-                                                                            <td>'.$tres['user_age'].'</td>
-                                                                            <td>'.$tres['total_votes'].'</td>
-                                                                            <td style="text-align: center">
-                                                                                <button class="mb-2 mr-2 btn btn-primary details" data-toggle="modal" data-target="#candidate-info" value="'.$tres['user_id'].'"><i class="fa fa-id-card"></i> See Information</button>
-                                                                                ';
-
-                                                                                if ($row['poll_status'] == 3) {
-                                                                                echo '<button class="mb-2 mr-2 btn btn-success edit-details" data-toggle="modal" data-target="#edit-candidate-info" value="'.$tres['user_id'].'"><i class="fa fa-edit"></i> Update</button>';
-                                                                                echo '<button class="mb-2 mr-2 btn btn-danger delete-representative" data-toggle="modal" value="'.$tres['user_id'].'"><i class="fa fa-trash"></i> Delete</button>';
-                                                                            }
-
-                                                                            echo '
-                                                                            </td>
-                                                                        </tr>
-                                                                        ';
-                                                                        $ctr++;
-                                                                    }
-                                                                }
-                                                                else if($row2['pos_id'] == 5){
-                                                                    $PIO = $select->getPIO($i);
-                                                                    while($pio = $PIO->fetch(PDO::FETCH_ASSOC)){
-                                                                        echo'
-                                                                        <tr>
-                                                                        <td style="width: 70px; text-align: center"><i class="fa fa-user fa-2x"></i></td>
-                                                                            <td>'.$pio['user_fullname'].'</td>
-                                                                            <td>'.$pio['user_address'].'</td>
-                                                                            <td>'.$pio['user_age'].'</td>
-                                                                            <td>'.$pio['total_votes'].'</td>
-                                                                            <td style="text-align: center">
-                                                                                <button class="mb-2 mr-2 btn btn-primary details" data-toggle="modal" data-target="#candidate-info" value="'.$pio['user_id'].'"><i class="fa fa-id-card"></i> See Information</button>
-                                                                                
-                                                                                ';
-
-                                                                                if ($row['poll_status'] == 3) {
-                                                                                echo '<button class="mb-2 mr-2 btn btn-success edit-details" data-toggle="modal" data-target="#edit-candidate-info" value="'.$pio['user_id'].'"><i class="fa fa-edit"></i> Update</button>';
-                                                                                echo '<button class="mb-2 mr-2 btn btn-danger delete-representative" data-toggle="modal" value="'.$pio['user_id'].'"><i class="fa fa-trash"></i> Delete</button>';
-                                                                            }
-
-                                                                            echo '
-                                                                            </td>
-                                                                        </tr>
-                                                                        ';
-                                                                        $ctr++;
-                                                                    }
-                                                                }
-                                                                else if($row2['pos_id'] == 6){
-                                                                    $auditor = $select->getAuditor($i);
-                                                                    while($audit = $auditor->fetch(PDO::FETCH_ASSOC)){
-                                                                        echo'
-                                                                        <tr>
-                                                                        <td style="width: 70px; text-align: center"><i class="fa fa-user fa-2x"></i></td>
-                                                                            <td>'.$audit['user_fullname'].'</td>
-                                                                            <td>'.$audit['user_address'].'</td>
-                                                                            <td>'.$audit['user_age'].'</td>
-                                                                            <td>'.$audit['total_votes'].'</td>
-                                                                            <td style="text-align: center">
-                                                                                <button class="mb-2 mr-2 btn btn-primary details" data-toggle="modal" data-target="#candidate-info" value="'.$audit['user_id'].'"><i class="fa fa-id-card"></i> See Information</button>
-                                                                                
-                                                                                ';
-
-                                                                                if ($row['poll_status'] == 3) {
-                                                                                echo '<button class="mb-2 mr-2 btn btn-success edit-details" data-toggle="modal" data-target="#edit-candidate-info" value="'.$audit['user_id'].'"><i class="fa fa-edit"></i> Update</button>';
-                                                                                echo '<button class="mb-2 mr-2 btn btn-danger delete-representative" data-toggle="modal" value="'.$audit['user_id'].'"><i class="fa fa-trash"></i> Delete</button>';
-                                                                            }
-
-                                                                            echo '
-                                                                            </td>
-                                                                        </tr>
-                                                                        ';
-                                                                        $ctr++;
-                                                                    }
-                                                                }
-                                                                else if($row2['pos_id'] == 7){
-                                                                    $sergeant_at_arms = $select->getSergeantAtArms($i);
-                                                                    while($arms = $sergeant_at_arms->fetch(PDO::FETCH_ASSOC)){
-                                                                        echo'
-                                                                        <tr>
-                                                                        <td style="width: 70px; text-align: center"><i class="fa fa-user fa-2x"></i></td>
-                                                                            <td>'.$arms['user_fullname'].'</td>
-                                                                            <td>'.$arms['user_address'].'</td>
-                                                                            <td>'.$arms['user_age'].'</td>
-                                                                            <td>'.$arms['total_votes'].'</td>
-                                                                            <td style="text-align: center">
-                                                                                <button class="mb-2 mr-2 btn btn-primary details" data-toggle="modal" data-target="#candidate-info" value="'.$arms['user_id'].'"><i class="fa fa-id-card"></i> See Information</button>
-                                                                                ';
-
-                                                                                if ($row['poll_status'] == 3) {
-                                                                                echo '<button class="mb-2 mr-2 btn btn-success edit-details" data-toggle="modal" data-target="#edit-candidate-info" value="'.$arms['user_id'].'"><i class="fa fa-edit"></i> Update</button>';
-                                                                                echo '<button class="mb-2 mr-2 btn btn-danger delete-representative" data-toggle="modal" value="'.$arms['user_id'].'"><i class="fa fa-trash"></i> Delete</button>';
-                                                                            }
-
-                                                                            echo '
-                                                                            </td>
-                                                                        </tr>
-                                                                        ';
-                                                                        $ctr++;
-                                                                    }
-                                                                }
-    
-                                                                else if($row2['pos_id'] == 8){
-                                                                    $representatives = $select->getRepresentatives($i);
-                                                                    while($rep = $representatives->fetch(PDO::FETCH_ASSOC)){
-                                                                        echo'
-                                                                        <tr>
-                                                                        <td style="width: 70px; text-align: center"><i class="fa fa-user fa-2x"></i></td>
-                                                                            <td>'.$rep['user_fullname'].'</td>
-                                                                            <td>'.$rep['user_address'].'</td>
-                                                                            <td>'.$rep['user_age'].'</td>
-                                                                            <td>'.$rep['total_votes'].'</td>
-                                                                            <td style="text-align: center">
-                                                                                <button class="mb-2 mr-2 btn btn-primary details" data-toggle="modal" data-target="#candidate-info" value="'.$rep['user_id'].'"><i class="fa fa-id-card"></i> See Information</button>
-                                                                                
-                                                                                ';
-
-                                                                                if ($row['poll_status'] == 3) {
-                                                                                echo '<button class="mb-2 mr-2 btn btn-success edit-details" data-toggle="modal" data-target="#edit-candidate-info" value="'.$rep['user_id'].'"><i class="fa fa-edit"></i> Update</button>';
-                                                                                echo '<button class="mb-2 mr-2 btn btn-danger delete-representative" data-toggle="modal" value="'.$rep['user_id'].'"><i class="fa fa-trash"></i> Delete</button>';
-                                                                            }
-
-                                                                            echo '
-                                                                            </td>   
-                                                                        </tr>
-                                                                        ';
-                                                                        $ctr++;
-                                                                    }
-                                                                }
+                                                                        echo '
+                                                                            
+                                                                        </td>
+                                                                    </tr>
+                                                                    ';
                                                             }
                                                         echo '
                                                         </tbody>
@@ -275,6 +98,18 @@
                                         </div>
                                     ';
                                     $collapse_no++;
+                                }
+
+                                if ($collapse_no == 0) {
+                                    echo'
+                                        <div class="card">
+                                            <div id="headingOne" class="card-header">
+                                                <button type="button" data-toggle="collapse" aria-expanded="true" aria-controls="collapseOne" class="text-center m-0 p-0 btn btn-block">
+                                                    <h6 class="m-0 p-0">No registered positions and candidates</h6>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    ';
                                 }
 
                             echo'
@@ -288,24 +123,34 @@
                     ';
                         if($row['poll_status'] == 3){
                             echo '
-                                <button type="button" data-toggle="collapse" href="#card-collapse'.$row['poll_id'].'" class="btn mr-2 btn-primary">View Candidates</button>
-                                <button type="button" class="btn mr-2 mb-0 btn-success register-candidate-btn" value="'.$row['poll_no'].'" data-toggle="modal" data-target=".bd-example-modal-lg">Register Candidate</button>
-                                <button type="button" class="btn mr-2 mb-0 btn-warning start" data-toggle="tooltip" title="Open for Voting" data-placement="bottom" value="'.$row['poll_no'].'" id="start-btn'.$row['poll_no'].'"><i class="fa fa-play-circle" aria-hidden="true"></i></button>
-                                <button type="button" class="btn mr-2 mb-0 btn-danger stop" disabled data-toggle="tooltip" title="Close Voting" data-placement="bottom" value="'.$row['poll_no'].'" id="stop-btn'.$row['poll_no'].'"><i class="fa fa-stop-circle" aria-hidden="true"></i></button>
+                                <button type="button" data-toggle="collapse" href="#card-collapse'.$row['poll_id'].'" class="btn mr-2 btn-primary">Information</button>
+                                <button type="button" class="btn mr-2 mb-0 btn-success register-candidate-btn" value="'.$row['poll_no'].'" data-toggle="modal" data-target="#registration-form-modal">Register Candidate</button>
+                                ';
+                                
+                                if ($collapse_no) {
+                                    echo'<button type="button" class="btn mr-2 mb-0 btn-warning start" data-toggle="tooltip" title="Open for Voting" data-placement="bottom" value="'.$row['poll_no'].'" id="start-btn'.$row['poll_no'].'"><i class="fa fa-play-circle" aria-hidden="true"></i></button>';
+                                }
+
+                                echo '
                                 <button type="button" class="btn mr-2 mb-0 btn-danger delete" data-toggle="tooltip" title="Delete Poll" data-placement="bottom" value="'.$row['poll_no'].'" id="stop-btn'.$row['poll_no'].'"><i class="fa fa-trash" aria-hidden="true"></i></button>
                             ';
                         }
                         else if($row['poll_status'] == 5){
                             echo '
-                                <button type="button" data-toggle="collapse" href="#card-collapse'.$row['poll_id'].'" class="btn mr-2 btn-primary">View Candidates</button>
+                                <button type="button" data-toggle="collapse" href="#card-collapse'.$row['poll_id'].'" class="btn mr-2 btn-primary"> Information</button>
                                 <button type="button" class="btn mr-2 mb-0 btn-danger stop" data-toggle="tooltip" title="Close Voting" data-placement="bottom" value="'.$row['poll_no'].'" id="stop-btn'.$row['poll_no'].'"><i class="fa fa-fw" aria-hidden="true" title="Copy to use stop"></i></button>
-                            ';
+                                <button type="button" data-toggle="modal" data-target="#real-time-leaderboard" class="btn mr-2 mb-0 btn-info real-time-leaderboard" value="'.$row['poll_no'].'">Real-Time Leaderboard</button>
+                                ';
                         }
                         else{
                             if($row['poll_status'] == 4){
                                 echo '
-                                    <button type="button" data-toggle="collapse" href="#card-collapse'.$row['poll_id'].'" class="btn mr-2 btn-warning">View Results</button>
+                                    <button type="button" data-toggle="collapse" href="#card-collapse'.$row['poll_id'].'" class="btn mr-2 btn-warning">Information</button>
                                     <button type="button" class="btn mr-2 mb-0 btn-danger delete" data-toggle="tooltip" title="Close Voting" data-placement="bottom" value="'.$row['poll_no'].'" id="stop-btn'.$row['poll_no'].'"><i class="fa fa-trash" aria-hidden="true" title="Copy to use stop"></i></button>
+                                    <button type="button" data-toggle="modal" data-target="#real-time-leaderboard" status="'.$row['poll_status'].'" class="btn mr-2 mb-0 btn-info real-time-leaderboard" value="'.$row['poll_no'].'">Final Result</button>
+                                    <a href="../../tcpdf/results.php?poll_no='.$row['poll_no'].'" target="new" class="pdf_view" type="view">
+                                        <button type="button" class="btn mr-2 mb-0 btn-dark"><i class="fa fa-download" aria-hidden="true" title="Copy to use stop"></i> Download Results</button>
+                                    </a>
                                 ';
                             }
                         }
