@@ -40,6 +40,12 @@
                         </a>
                     </li>
                     <li>
+                        <a href="#" data-toggle="modal" data-target="#register-modal">
+                            <i class="metismenu-icon pe-7s-plus "></i>
+                            Register
+                        </a>
+                    </li>
+                    <li>
                         <a href="../../admin/pages/users.php" class="<?php echo $page == "Users" ? 'mm-active' : ''; ?>">
                             <i class="metismenu-icon pe-7s-users "></i>
                             Users

@@ -12,6 +12,7 @@
     <link href="../../main.css" rel="stylesheet">
     <link rel="stylesheet" href="../../assets/bootstrap-sweetalert/dist/sweetalert.css">
 	<link rel="stylesheet" href="../../assets/css/datatable.bootstrap.min.css">
+    <link rel="stylesheet" href="../../custom.css">
     <style>
         .modal {
     	overflow-y:auto;

@@ -10,17 +10,21 @@
 		
 		// Admin User Profile Registration - a candidate
 		public function candidateProfileRegistration(){
-			$query = " INSERT INTO users_profile(pos_id, type_id, user_fullname, user_age, user_address, user_motto, user_achievements, user_department, user_status) VALUES (?, 3, ?, ?, ?, ?, ?, ?, 1)";
+			$query = " INSERT INTO users_profile(pos_id, type_id, user_age, user_address, user_motto, user_achievements, user_department, user_status, user_firstname, user_lastname, user_mi, user_photo, image_path) VALUES (?, 3, ?, ?, ?, ?, ?, 1, ?, ?, ?, ?, ?)";
 			$this->conn->setAttribute( PDO::ATTR_ERRMODE, PDO:: ERRMODE_WARNING);
 			$sel = $this->conn->prepare($query);
 
 			$sel->bindParam(1, $this->pos_id);
-			$sel->bindParam(2, $this->user_fullname);
-			$sel->bindParam(3, $this->user_age);
-			$sel->bindParam(4, $this->user_address);
-			$sel->bindParam(5, $this->user_motto);
-			$sel->bindParam(6, $this->user_achievements);
-			$sel->bindParam(7, $this->user_department);
+			$sel->bindParam(2, $this->user_age);
+			$sel->bindParam(3, $this->user_address);
+			$sel->bindParam(4, $this->user_motto);
+			$sel->bindParam(5, $this->user_achievements);
+			$sel->bindParam(6, $this->user_department);
+			$sel->bindParam(7, $this->user_firstname);
+			$sel->bindParam(8, $this->user_lastname);
+			$sel->bindParam(9, $this->user_mi);
+			$sel->bindParam(10, $this->user_photo);
+			$sel->bindParam(11, $this->image_path);
 
 			$sel->execute();
 			return $sel;
@@ -28,12 +32,13 @@
 		
 		// Voter Registration - not a candidate
 		public function usersProfileRegistration(){
-			$query = " INSERT INTO users_profile(pos_id, type_id, user_fullname, user_age, user_address, user_motto, user_achievements, user_department, user_status) VALUES (?, 2, ?, NULL, NULL, NULL, NULL, NULL, 1)";
+			$query = " INSERT INTO users_profile(pos_id, type_id, user_fullname, user_age, user_address, user_motto, user_achievements, user_department, user_status) VALUES (?, ?, ?, NULL, NULL, NULL, NULL, NULL, 1)";
 			$this->conn->setAttribute( PDO::ATTR_ERRMODE, PDO:: ERRMODE_WARNING);
 			$sel = $this->conn->prepare($query);
 
 			$sel->bindParam(1, $this->pos_id);
-			$sel->bindParam(2, $this->user_fullname);
+			$sel->bindParam(2, $this->type_id);
+			$sel->bindParam(3, $this->user_fullname);
 
 			$sel->execute();
 			return $sel;

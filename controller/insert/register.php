@@ -12,6 +12,7 @@
     $obj = json_decode(json_encode($_POST['data']), true);
     
     $query->user_type = $obj['type'];
+    $query->type_id = $obj['type'];
     $query->user_fullname = $obj['name'];
     $query->voters_username = $obj['username'];
     $query->voters_password = base64_encode($obj['password']);

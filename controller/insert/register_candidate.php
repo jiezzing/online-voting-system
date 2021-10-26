@@ -9,27 +9,37 @@
     $query = new Insert($db);
     $query2 = new Select($db);
 
-    $obj = json_decode(json_encode($_POST['data']), true);
-    
     $select = $query2->getLastId();
     while($row = $select->fetch(PDO::FETCH_ASSOC)){
         $total_users = $row['voters_id'];
     }
+
+    if(isset($_FILES['file']['name'])){
+		if($_FILES['file']['name']){
+            $path = '../../assets/images/avatars/' . $_FILES['file']['name'];
+			if (move_uploaded_file($_FILES["file"]["tmp_name"], $path)) {
+                $query->user_photo = $_FILES['file']['name'];
+                $query->image_path = $path;
+            }
+		}
+	}
     
-    $query->user_type = $obj['type'];
-    $query->user_fullname = $obj['name'];
-    $query->user_age = $obj['age'];
-    $query->user_address = $obj['address'];
-    $query->user_motto = $obj['motto'];
-    $query->user_achievements = $obj['achievements'];
-    $query->user_department = $obj['user_department'] != "" && isset($obj['user_department']) ? $obj['user_department'] : NULL;
+    $query->user_type = $_POST['type'];
+    $query->user_firstname = $_POST['firstname'];
+    $query->user_lastname = $_POST['lastname'];
+    $query->user_mi = $_POST['mi'];
+    $query->user_age = $_POST['age'];
+    $query->user_address = $_POST['address'];
+    $query->user_motto = $_POST['motto'];
+    $query->user_achievements = $_POST['achievements'];
+    $query->user_department = $_POST['user_department'] != "" && isset($_POST['user_department']) ? $_POST['user_department'] : NULL;
 
     $query->voters_username = NULL;
     $query->voters_password = NULL;
 
-    $query->poll_no = $obj['poll_no'];
+    $query->poll_no = $_POST['poll_no'];
     $query->user_id = (intval($total_users) + 1);
-    $query->pos_id = $obj['type'];
+    $query->pos_id = $_POST['type'];
 
 
     $insert = $query->candidateProfileRegistration();

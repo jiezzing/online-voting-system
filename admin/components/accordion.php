@@ -58,14 +58,14 @@
                                                                 echo'
                                                                     <tr>
                                                                         <td style="width: 70px; text-align: center"><i class="fa fa-user fa-2x"></i></td>
-                                                                        <td style="width: 160px">'.$pres['user_fullname'].'</td>
+                                                                        <td style="width: 160px">'.$pres['user_lastname'].', '.$pres['user_firstname'].' '.$pres['user_mi'].'</td>
                                                                         <td>'.$pres['user_address'].'</td>
                                                                         <td>'.$pres['user_age'].'</td>';
 
                                                                         if ($pres['user_department'] && $pres['pos_name'] == "Department Representatives" || $pres['pos_name'] == "Department Representative") {
                                                                             $departmentReps[$pres['user_department']][] = array(
                                                                                 $pres['user_id'],
-                                                                                $pres['user_fullname'],
+                                                                                $pres['user_lastname'].', '.$pres['user_firstname'].' '.$pres['user_mi'].'.',
                                                                             );
                                                                             echo '<td>'.$pres['user_department'].'</td>';
                                                                         } else {

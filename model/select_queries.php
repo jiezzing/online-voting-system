@@ -261,7 +261,7 @@
         }
 
 		public function getRepresentativesInPoll($poll_no, $pos_id){
-			$query = "SELECT user_id, user_fullname, user_address, user_age, user_department, total_votes, poll_status, pos_name, voters_id FROM poll_detail_file, users_profile, positions_file WHERE positions_file.pos_id=users_profile.pos_id AND poll_no=".$poll_no." AND poll_detail_file.user_id=voters_id AND poll_detail_file.pos_id=".$pos_id." ORDER BY user_department, total_votes DESC";
+			$query = "SELECT user_id, user_firstname, user_lastname, user_mi, user_address, user_age, user_department, total_votes, poll_status, pos_name, voters_id FROM poll_detail_file, users_profile, positions_file WHERE positions_file.pos_id=users_profile.pos_id AND poll_no=".$poll_no." AND poll_detail_file.user_id=voters_id AND poll_detail_file.pos_id=".$pos_id." ORDER BY user_department, total_votes DESC";
 			$this->conn->setAttribute( PDO::ATTR_ERRMODE, PDO:: ERRMODE_WARNING);
 			$sel = $this->conn->prepare($query);
 

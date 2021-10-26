@@ -28,31 +28,55 @@
                 </div>
                 <div class="modal-body">
                     <form id="registration-form">
-                        <div class="form-row">
-                            <div class="col-md-5">
-                                <div class="position-relative form-group"><label for="exampleEmail11" class="">Full Name</label><input name="fullname" id="exampleEmail11" placeholder="Full Name" type="text" class="form-control"></div>
+                        <div class="form-row col-md-12 nowrap mp-0">
+                            <div class="text-center" style="padding-bottom: 20px">
+                                <img id="photo-preview" src="../../assets/images/default.png" alt="default image" width="180" style="padding: 30px 0">
+                                <input id="photo" type="file" accept="image/*" onChange="setImage(this)" />
                             </div>
-                            <div class="col-md-5">
-                                <div class="position-relative form-group">
-                                <label for="exampleEmail11" class="">Position</label>
-                                <select class="mb-2 form-control" name="position" id="_position">
-                                    <?php
-                                        $query3 = $select->getPositionByStatus(1);
-                                        while($row3 = $query3->fetch(PDO::FETCH_ASSOC)){
-                                            extract($row3);
-                                                echo ' <option value="'.$row3['pos_id'].'">'.$row3['pos_name'].'</option> ';
-                                        }
-                                    ?>
-                                </select>
-                            </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="position-relative form-group"><label for="examplePassword11" class="">Age</label><input name="age" id="examplePassword11" placeholder="Age" type="number"
-                                                                                                                                            class="form-control"></div>
+                            <div>
+                                <div class="form-row">
+                                    <div class="col-md-5">
+                                        <div class="position-relative form-group">
+                                            <input name="firstname" id="firstname" placeholder="Firstname" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="position-relative form-group">
+                                            <input name="lastname" id="lastname" placeholder="Lastname" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="position-relative form-group">
+                                            <input name="middle-initial" id="middle-initial" placeholder="M.I." maxlength="1" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div class="position-relative form-group">
+                                            <input name="address" id="address" placeholder="Address" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="position-relative form-group">
+                                            <input name="age" id="age" placeholder="Age" type="number" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="position-relative form-group">
+                                            <label for="exampleEmail11" class="">Position</label>
+                                            <select class="mb-2 form-control" name="position" id="_position">
+                                                <?php
+                                                    $query3 = $select->getPositionByStatus(1);
+                                                    while($row3 = $query3->fetch(PDO::FETCH_ASSOC)){
+                                                        extract($row3);
+                                                            echo ' <option value="'.$row3['pos_id'].'">'.$row3['pos_name'].'</option> ';
+                                                    }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="position-relative form-group"><label for="exampleAddress" class="">Address</label><input name="address" id="exampleAddress" placeholder="Address" type="text" class="form-control"></div>
-                        
                         <div class="form-row">
                             <div class="col-md-12">
                                 <div class="position-relative form-group"><label for="exampleCity" class="">Sayings / Motto</label><input name="motto" id="exampleCity" type="text" class="form-control"></div>
@@ -154,6 +178,10 @@
 <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
 
 <script>
+    function setImage (input) {
+        $('#photo-preview')[0].src = (window.URL ? URL : webkitURL).createObjectURL(input.files[0]);
+    }
+
     let poll_no;
     toastr.options = {
         "debug": false,
@@ -194,7 +222,12 @@
     $('#register-btn').click(function(event){
         event.preventDefault();
 
-        let fullname = $('#registration-form').find('input[name="fullname"]').val();
+        let form = document.getElementById('registration-form');
+        let data = new FormData(form);
+
+        let firstname = $('#registration-form').find('input[name="firstname"]').val();
+        let lastname = $('#registration-form').find('input[name="lastname"]').val();
+        let mi = $('#registration-form').find('input[name="middle-initial"]').val();
         let position = $('#registration-form').find('select[name="position"]').val();
         let age = $('#registration-form').find('input[name="age"]').val();
         let address = $('#registration-form').find('input[name="address"]').val();
@@ -202,29 +235,38 @@
         let achievements = $('#registration-form').find('textarea[name="achievements"]').val();
         let department = $('#department_name').val().trim();
         let selected = $('#_position :selected').text();
-        let data = {
-            'poll_no': parseFloat(poll_no),
-            'type': position,
-            'name': fullname,
-            'age': age,
-            'address': address,
-            'motto': motto,
-            'achievements': achievements,
-            'user_department': department
-        };
+        let photo = $('#photo')[0].files[0];
 
-        if (fullname.trim() === "" || age.trim() === "" || address.trim() === "" || motto.trim() === "" || achievements.trim() === "" || (department === "" && selected === "Department Representatives" || selected === "Department Representative")) {
+        data.append('poll_no', parseFloat(poll_no));
+        data.append('type', position);
+        data.append('firstname', firstname);
+        data.append('lastname', lastname);
+        data.append('mi', mi);
+        data.append('age', age);
+        data.append('address', address);
+        data.append('motto', motto);
+        data.append('achievements', achievements);
+        data.append('user_department', department);
+        data.append('achievements', achievements);
+        data.append('achievements', achievements);
+        data.append('achievements', achievements);
+        $('#photo').get(0).files.length === 0 ? data.append('file', null) : data.append('file', photo);
+
+        if (firstname.trim() === "" || lastname.trim() === "" || age.trim() === "" || address.trim() === "" || motto.trim() === "" || achievements.trim() === "" || (department === "" && selected === "Department Representatives" || selected === "Department Representative")) {
             return toastr.error("Some fields are missing.", "Error", "error");
         }
 
         $.ajax({
             type: "POST",
             url: "../../controller/insert/register_candidate.php",
-            data: { 
-                data: data 
-            },
+            data: data,
+            contentType: false, 
+            cache: false,
+            processData: false,
             success: function(response){
-                $('#registration-form').find('input[name="fullname"]').val('');
+                $('#registration-form').find('input[name="firstname"]').val('');
+                $('#registration-form').find('input[name="lastname"]').val('');
+                $('#registration-form').find('input[name="middle-initial"]').val('');
                 $('#_position').val($('#_position option:first').val());
                 $('#registration-form').find('input[name="age"]').val('');
                 $('#registration-form').find('input[name="address"]').val('')

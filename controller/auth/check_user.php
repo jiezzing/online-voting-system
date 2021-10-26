@@ -22,9 +22,15 @@
         $_SESSION['voters_id'] = $row['voters_id'];
         $_SESSION['type_id'] = $row['type_id'];
     }
+    $response = [
+        'status' => 'success',
+        'isLoggedIn' => 1,
+        'type_id' => $_SESSION['type_id']
+    ];
 
-    if($sel)
-        echo "success";
-    else
+    if($sel) {
+        header('Content-type: application/json');
+        echo json_encode($response);
+    } else
         echo "failed";
 ?>

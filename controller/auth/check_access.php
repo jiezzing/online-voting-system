@@ -20,7 +20,6 @@
         }
         else if($row['type_id'] == 2){
             header("Location: ../../voter/pages/poll.php");
-            $_SESSION['username'] = 'relisa';
             exit();
         }
         else{

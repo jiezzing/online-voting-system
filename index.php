@@ -35,59 +35,6 @@
 <script src="./assets/bootstrap-sweetalert/dist/sweetalert.js"></script>
 <script src="./assets/bootstrap-sweetalert/dist/sweetalert.min.js"></script>
 <script>
-
-    (function() {
-        'use strict';
-        window.addEventListener('load', function() {
-            var forms = document.getElementsByClassName('needs-validation');
-            var validation = Array.prototype.filter.call(forms, function(form) {
-
-                form.addEventListener('submit', function(event) {
-                    if (form.checkValidity() === false) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    else{
-                        toastr.options = {
-                            "debug": false,
-                            "positionClass": "toast-top-left",
-                            "preventDuplicates": true      
-                        }
-                        let name = $('#registration-form').find('input[name="name"]').val();
-                        let username = $('#registration-form').find('input[name="username"]').val();
-                        let password = $('#registration-form').find('input[name="password"]').val();
-
-                        let data = {
-                            'name': name,
-                            'username': username,
-                            'password': password,
-                            'type': 2
-                        };
-                        $.ajax({
-                            type: "POST",
-                            url: "controller/insert/register.php",
-                            data: { 
-                                data: data 
-                            },
-                            success: function(response){
-                                if(response == "success")
-                                    toastr.success("You can now use your registered username and password", "Success", "success");
-                                else
-                                    toastr.error("Username or password already exists. Please try again.", "Error", "error");
-                            },
-                            error: function(xhr, ajaxOptions, thrownError){
-                                alert(thrownError);
-                            }
-                        });
-                    }
-                    form.classList.add('was-validated');
-                    event.preventDefault();
-                }, false);
-            });
-        }, false);
-    })();
-    // End
-
     $('#login').click(function(){
         event.preventDefault();
         let username = $('#login-form').find('input[name="username"]').val();
@@ -96,6 +43,16 @@
             'username': username,
             'password': password
         };
+
+        toastr.options = {
+            "debug": false,
+            "positionClass": "toast-top-left",
+            "preventDuplicates": true      
+        }
+
+        if (username == "" || password == "") {
+            return toastr.error("Username and password must not be empty. Please try again!", "Error", "error");
+        }
 
         $.ajax({
             type: "POST",

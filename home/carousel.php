@@ -2,7 +2,7 @@
         <div class="app-main">
             <div class="app-main__inner">          
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-12   ">
                         <div class="main-card mb-2 card">
                             <div class="card-body">
                                 <div id="carouselExampleControls1" class="carousel slide" data-ride="carousel">
@@ -26,10 +26,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Registartion form -->
-                    <?php include 'home/registration.php'; ?>
-                    <!-- End -->
                 </div>
             </div>
         </div>
